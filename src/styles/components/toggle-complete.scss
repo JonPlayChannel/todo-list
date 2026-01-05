@@ -1,0 +1,35 @@
+@use "../helpers" as *;
+
+.toggle-complete {
+  position: relative;
+  width: 10%;
+  height: 100%;
+  @include flex-center(true);
+
+  &__controller,
+  &__emulator {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__controller {
+    position: absolute;
+    opacity: 0;
+
+    &:checked ~ .toggle-complete__emulator::after {
+      opacity: 1;
+    }
+  }
+
+  &__emulator {
+    position: relative;
+
+    &::after {
+      content: "❯";
+      @include abs-center;
+      opacity: 0.5;
+      transition-duration: calc(var(--transition-duration) * 0.75);
+      transform: rotate(90deg);
+    }
+  }
+}
