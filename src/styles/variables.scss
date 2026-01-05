@@ -2,14 +2,22 @@
 
 :root {
   --color-black: #1B1B1B;
+  --color-gray: #8D8D8D;
   --color-white: #FFFFFF;
 
-  --color-base: #ec8600;
-  --color-orange-100: hsl(from var(--color-base) h calc(s + 20) l);
+  --color-base: #EC8600;
+  --color-orange-100: hsl(from var(--color-base) h calc(s + 30) l);
 
-  --color-background: hsl(from var(--color-base) h calc(s - 50) calc(l + 45));
+  --color-background: hsl(from var(--color-base) h calc(s - 50) calc(l + 47));
 
   --font-family: "Rubik";
+
+  --padding-small: #{rem(17)};
+  --padding-big: #{rem(24)};
+
+  --border-radius: #{rem(14)};
+
+  --box-shadow: 0 0 #{rem(2)} #{rem(2)} var(--color-orange-100);
 
   --transition-duration: 200ms;
 }

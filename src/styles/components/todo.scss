@@ -4,19 +4,36 @@
   width: 80%;
   display: flex;
   flex-direction: column;
-  row-gap: rem(10);
   font-size: 2rem;
-  background-color: var(--color-white);
 
+  > * {
+    padding-block: var(--padding-small) var(--padding-big);
+    background-color: var(--color-white);
+
+    &:not(:first-child) {
+      padding-left: var(--padding-small);
+    }
+
+    &:not(:last-child) {
+      border-bottom: #{rem(2)} solid var(--color-gray);
+    }
+  }
+
+  // Header related
   &__header {
+    position: relative;
+    z-index: 10;
     height: rem(90);
     display: flex;
     align-items: center;
     column-gap: rem(30);
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
     transition-duration: var(--transition-duration);
 
     &:has(.todo__input:focus) {
-      box-shadow: 0 0 #{rem(2)} #{rem(2)} var(--color-orange-100);
+      border-color: transparent;
+      box-shadow: var(--box-shadow);
     }
   }
 
@@ -27,6 +44,13 @@
   &__input {
     width: 100%;
     height: 100%;
+    font-size: 1.05em;
     outline: none;
+  }
+
+  // Footer related
+  &__footer {
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
   }
 }
