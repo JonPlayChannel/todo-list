@@ -10,4 +10,6 @@
   --color-background: hsl(from var(--color-base) h calc(s - 50) calc(l + 45));
 
   --font-family: "Rubik";
+
+  --transition-duration: 200ms;
 }
