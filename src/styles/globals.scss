@@ -1,0 +1,6 @@
+@use "./helpers" as *;
+
+body,
+button {
+  font-family: var(--font-family), sans-serif;
+}

@@ -1,0 +1,11 @@
+@use 'helpers' as *;
+
+:root {
+  --color-black: #1B1B1B;
+  --color-white: #FFFFFF;
+
+  --color-orange: #ec8600;
+  --color-orange-light: hsl(from var(--color-orange) h calc(s + 10) calc(l + 5));
+
+  --font-family: "Rubik";
+}

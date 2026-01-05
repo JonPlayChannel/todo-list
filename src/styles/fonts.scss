@@ -1,0 +1,43 @@
+$rubik-font-path: "/src/fonts/Rubik-VariableFont_wght.woff2";
+
+@font-face {
+  src: url($rubik-font-path) format("woff2");
+  font-family: "Rubik";
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  src: url($rubik-font-path) format("woff2");
+  font-family: "Rubik";
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  src: url($rubik-font-path) format("woff2");
+  font-family: "Rubik";
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  src: url($rubik-font-path) format("woff2");
+  font-family: "Rubik";
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  src: url($rubik-font-path) format("woff2");
+  font-family: "Rubik";
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  src: url($rubik-font-path) format("woff2");
+  font-family: "Rubik";
+  font-weight: 900;
+  font-display: swap;
+}
