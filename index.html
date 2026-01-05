@@ -11,9 +11,14 @@
     <h1 class="h1">Список задач</h1>
     <div id="todo">
       <div class="todo__header">
-        <div class="todo__complete-all-button">
-          cab
-        </div>
+        <label class="todo__toggle-complete toggle-complete">
+          <input
+            class="toggle-complete__controller"
+            type="checkbox"
+            id="toggle-complete"
+          />
+          <span class="toggle-complete__emulator"></span>
+        </label>
         <form class="todo__form">
           <input 
             class="form__input"
