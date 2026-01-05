@@ -4,8 +4,10 @@
   --color-black: #1B1B1B;
   --color-white: #FFFFFF;
 
-  --color-orange: #ec8600;
-  --color-orange-light: hsl(from var(--color-orange) h calc(s + 10) calc(l + 5));
+  --color-base: #ec8600;
+  --color-orange-100: hsl(from var(--color-base) h calc(s + 20) l);
+
+  --color-background: hsl(from var(--color-base) h calc(s - 50) calc(l + 45));
 
   --font-family: "Rubik";
 }
