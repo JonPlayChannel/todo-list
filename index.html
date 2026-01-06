@@ -35,8 +35,48 @@
           />
         </form>
       </div>
-      <div class="no-tasks" data-js-no-tasks-element>Список задач пуст</div>
-      <ul class="todo__list" data-js-todo-list></ul>
+      <ul class="todo__list visually-hidden" data-js-todo-list>
+        <li class="todo__todo-item todo-item">
+          <label class="todo-item__checkbox checkbox" for="task-1">
+            <input
+              class="checkbox__controller"
+              type="checkbox"
+              name="task-1-done"
+              id="task-1"
+              data-js-todo-item-checkbox
+            />
+            <span class="checkbox__emulator"></span>            
+          </label>
+          <span class="todo-item__label">Задача 1</span>
+          <button
+            class="todo-item__delete-task-button"
+            type="button"
+            title="Удалить задачу"
+            aria-label="Удалить задачу"
+            data-js-delete-task-button
+          ></button>
+        </li>
+        <li class="todo__todo-item todo-item">
+          <label class="todo-item__checkbox checkbox" for="task-1">
+            <input
+              class="checkbox__controller"
+              type="checkbox"
+              name="task-1-done"
+              id="task-1"
+              data-js-todo-item-checkbox
+            />
+            <span class="checkbox__emulator"></span>            
+          </label>
+          <span class="todo-item__label">Задача 1</span>
+          <button
+            class="todo-item__delete-task-button"
+            type="button"
+            title="Удалить задачу"
+            aria-label="Удалить задачу"
+            data-js-delete-task-button
+          ></button>
+        </li>
+      </ul>
       <div class="todo__footer">
         <div class="todo__items-left">
           <span data-js-todo-items-count>n</span>
