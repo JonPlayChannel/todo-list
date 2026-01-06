@@ -101,7 +101,7 @@ const addTask = () => {
   }
 
   const newTask = {
-    id: crypto.randomUUID() ?? new Date(),
+    id: crypto?.randomUUID() ?? new Date(),
     label: label,
     isDone: false
   };
