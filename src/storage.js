@@ -1,5 +1,3 @@
-import { appendTasks } from "./list";
-
 const getTasksFromLocalStorage = () => {
   const list = JSON.parse(localStorage.getItem("snp-todo"));
   return list;

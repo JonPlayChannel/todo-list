@@ -1,4 +1,5 @@
 import selectors from "./selectors";
+import cssClasses from "./css-classes";
 import { getTasksFromLocalStorage } from "./storage";
 
 const todoListElement = document.querySelector(selectors.todoList);
@@ -17,11 +18,11 @@ const appendTasks = () => {
   const tasksList = getTasksFromLocalStorage();
 
   if (tasksList === null) {
-    todoListElement.classList.add("visually-hidden");
+    todoListElement.classList.add(cssClasses.visuallyHidden);
     return;
   } else {
     noTasksElement.remove();
-    todoListElement.classList.remove("visually-hidden");
+    todoListElement.classList.remove(cssClasses.visuallyHidden);
   }
   
   // Очистка списка
