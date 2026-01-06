@@ -9,7 +9,7 @@ const insertNoTasksElement = () => {
   const noTasksElement = document.createElement('div');
   noTasksElement.className = "no-tasks";
   noTasksElement.textContent = "Список задач пуст";
-  noTasksElement.dataset.jsNoTasksElement = ''
+  noTasksElement.dataset.jsNoTasksElement = '';
 
   todoListElement.replaceWith(noTasksElement);
 }
