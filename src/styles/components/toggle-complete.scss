@@ -27,6 +27,7 @@
     &::after {
       content: "❯";
       @include abs-center;
+      color: var(--color-orange-100);
       opacity: 0.5;
       transition-duration: calc(var(--transition-duration) * 0.75);
       transform: rotate(90deg);
