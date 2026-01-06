@@ -1,20 +1,31 @@
 import selectors from "./selectors";
+import { getTasksFromLocalStorage } from "./storage";
 
 const todoListElement = document.querySelector(selectors.todoList);
+const noTasksElement = document.querySelector(selectors.noTasksElement);
 
 const insertNoTasksElement = () => {
   const noTasksElement = document.createElement('div');
   noTasksElement.className = "no-tasks";
-  noTasksElement.textContent = "Список задач пуст"
+  noTasksElement.textContent = "Список задач пуст";
+  noTasksElement.dataset.jsNoTasksElement = ''
 
   todoListElement.replaceWith(noTasksElement);
 }
 
-const appendTasks = (tasks) => {
+const appendTasks = () => {
+  const tasks = getTasksFromLocalStorage();
+
+  if (tasks === null) {
+    todoListElement.classList.add("visually-hidden");
+  } else {
+    noTasksElement.remove();
+  }
+  
   // Очистка списка
   todoListElement.innerHTML = "";
   
-  tasks.forEach(task => {
+  tasks?.forEach(task => {
     // Обёртка задачи
     const taskElement = document.createElement('li');
     taskElement.className = "todo__todo-item todo-item";

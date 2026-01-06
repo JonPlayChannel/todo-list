@@ -1,10 +1,11 @@
-import { appendTasks, insertNoTasksElement } from "./list";
-import getTasksFromLocalStorage from "./storage";
+import selectors from "./selectors";
+import { appendTasks } from "./list";
+import { addTask } from "./form";
 
-const tasks = getTasksFromLocalStorage();
+const todoFormElement = document.querySelector(selectors.todoForm);
 
-if (tasks === null) {
-  insertNoTasksElement();
-} else {
-  appendTasks(tasks);
-}
+todoFormElement.addEventListener("submit", (event) => {
+  event.preventDefault();
+  addTask();
+});
+appendTasks();
