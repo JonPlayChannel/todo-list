@@ -18,6 +18,7 @@ const appendTasks = () => {
 
   if (tasks === null) {
     todoListElement.classList.add("visually-hidden");
+    return;
   } else {
     noTasksElement.remove();
     todoListElement.classList.remove("visually-hidden");
