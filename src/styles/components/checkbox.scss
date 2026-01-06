@@ -4,6 +4,7 @@
   position: relative;
   @include square(rem(30));
   @include flex-center(true);
+  cursor: pointer;
 
   &__controller,
   &__emulator {
