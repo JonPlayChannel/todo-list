@@ -25,6 +25,7 @@
 
   &__emulator {
     position: relative;
+    flex-shrink: 0;
     border: var(--border-orange-100);
     border-radius: 50%;
 
