@@ -1,4 +1,4 @@
-import showTasksList from "./list";
+import appendTasks from "./list";
 import selectors from "./selectors";
 
 const todoListElement = document.querySelector(selectors.todoList);
@@ -21,7 +21,7 @@ const getTasksFromLocalStorage = () => {
     return;
   }
 
-  showTasksList(list);
+  appendTasks(list);
 }
 
 export {

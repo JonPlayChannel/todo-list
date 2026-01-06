@@ -2,11 +2,11 @@ import selectors from "./selectors";
 
 const todoListElement = document.querySelector(selectors.todoList);
 
-const showTasksList = (tasks) => {
-  tasks.array.forEach(task => {
+const appendTasks = (tasks) => {
+  tasks.forEach(task => {
     // Обёртка задачи
     const taskElement = document.createElement('li');
-    taskElement.className = "todo-item";
+    taskElement.className = "todo__todo-item todo-item";
 
     // Чекбокс
     const taskCheckbox = document.createElement('label');
@@ -16,7 +16,7 @@ const showTasksList = (tasks) => {
         class="checkbox__controller"
         type="checkbox"
         name="${task.id}-done" id="${task.id}"
-        checked=${task.isDone}
+        ${task.isDone ? "checked" : ''}
         data-js-todo-item-checkbox
       />
       <span class="checkbox__emulator"></span>
@@ -39,4 +39,4 @@ const showTasksList = (tasks) => {
   });
 }
 
-export default showTasksList;
+export default appendTasks;
