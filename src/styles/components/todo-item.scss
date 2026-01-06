@@ -1,0 +1,43 @@
+@use "../helpers" as *;
+
+.todo-item {
+  padding: var(--padding-big) var(--padding-small);
+  display: flex;
+  align-items: center;
+  column-gap: rem(20);
+  
+  &:not(:last-child) {
+    border-bottom: var(--border);
+  }
+
+  &__delete-task-button {
+    position: relative;
+    margin-left: auto;
+    @include square(rem(32));
+    background-color: var(--color-orange-100);
+    border: none;
+    transition-duration: var(--transition-duration);
+    opacity: 0.75;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      @include abs-center;
+      z-index: 10;
+      @include square(150%);
+    }
+
+    &::after {
+      content: '';
+      @include abs-center;
+      @include square(100%);
+      background-image: url("/delete-task-icon.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    @include hover {
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@use "../helpers" as *;
+
+.checkbox {
+  position: relative;
+  @include square(rem(30));
+  @include flex-center(true);
+
+  &__controller,
+  &__emulator {
+    @include square(100%);
+  }
+
+  &__controller {
+    position: absolute;
+    opacity: 0;
+
+    &:checked ~ .checkbox__emulator::after {
+      transform: rotate(0);
+      box-shadow: var(--box-shadow);
+      opacity: 1;
+      scale: 1;
+    }
+  }
+
+  &__emulator {
+    position: relative;
+    border: var(--border-orange-100);
+    border-radius: 50%;
+
+    &::after {
+      content: '';
+      @include abs-center;
+      @include square(100%);
+      background-color: var(--color-orange-100);
+      background-image: url("/checkbox-icon.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 50%;
+      transition-duration: var(--transition-duration);
+      transform: rotate(-360deg);
+      opacity: 0;
+      scale: 0;
+    }
+  }
+}

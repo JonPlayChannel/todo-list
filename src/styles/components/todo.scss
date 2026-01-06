@@ -7,15 +7,10 @@
   font-size: 2rem;
 
   > * {
-    padding-block: var(--padding-small) var(--padding-big);
     background-color: var(--color-white);
 
-    &:not(:first-child) {
-      padding-left: var(--padding-small);
-    }
-
     &:not(:last-child) {
-      border-bottom: #{rem(2)} solid var(--color-gray);
+      border-bottom: var(--border);
     }
   }
 
@@ -23,7 +18,7 @@
   &__header {
     position: relative;
     z-index: 10;
-    height: rem(90);
+    padding-block: var(--padding-big);
     display: flex;
     align-items: center;
     column-gap: rem(30);
@@ -50,6 +45,7 @@
 
   // Footer related
   &__footer {
+    padding-block: var(--padding-small);
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
   }
