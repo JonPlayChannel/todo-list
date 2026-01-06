@@ -1,7 +1,7 @@
 @use "../helpers" as *;
 
 .todo {
-  width: 80%;
+  width: max(80%, rem(330));
   display: flex;
   flex-direction: column;
   font-size: 2rem;
