@@ -14,12 +14,13 @@
         <label
           class="todo__toggle-complete toggle-complete"
           title="Выполнить все задачи"
-          aria-label="Выполнить все задачи"          
+          aria-label="Выполнить все задачи"      
         >
           <input
             class="toggle-complete__controller"
             type="checkbox"
             id="toggle-complete"
+            tabindex="-1"
             data-js-toggle-complete
           />
           <span class="toggle-complete__emulator"></span>
@@ -29,6 +30,7 @@
             class="todo__input"
             id="add-task"
             placeholder="Что нужно сделать?"
+            tabindex="0"
             data-js-todo-input
           />
         </form>
