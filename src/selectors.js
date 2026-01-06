@@ -1,5 +1,6 @@
 const selectors = {
   toggleComplete: "[data-js-toggle-complete]",
+  todoForm: "[data-js-todo-form]",
   todoInput: "[data-js-todo-input]",
   todoList: "[data-js-todo-list]",
   todoItemCheckbox: "[data-js-todo-item-checkbox]",
