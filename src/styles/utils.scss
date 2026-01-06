@@ -4,3 +4,7 @@
   max-width: calc(var(--container-width));
   margin-inline: auto;
 }
+
+.visually-hidden {
+  @include visually-hidden;
+}
