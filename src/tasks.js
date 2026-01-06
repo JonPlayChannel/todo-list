@@ -73,14 +73,10 @@ const showTasksList = () => {
 }
 
 const loadTasks = () => {
-  const tasksList = getTasksFromLocalStorage();
-  console.log();
-  
+  const tasksList = getTasksFromLocalStorage();  
 
-  if (tasksList === null) {
-    todoListElement.classList.add(cssClasses.visuallyHidden);
-    return;
-  } else {
+  if (tasksList === null) return;
+  else {
     showTasksList();
   }
   
