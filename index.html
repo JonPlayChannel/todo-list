@@ -14,12 +14,13 @@
         <label
           class="todo__toggle-complete toggle-complete"
           title="Выполнить все задачи"
-          aria-label="Выполнить все задачи"
+          aria-label="Выполнить все задачи"          
         >
           <input
             class="toggle-complete__controller"
             type="checkbox"
             id="toggle-complete"
+            data-js-toggle-complete
           />
           <span class="toggle-complete__emulator"></span>
         </label>
@@ -28,6 +29,7 @@
             class="todo__input"
             id="add-task"
             placeholder="Что нужно сделать?"
+            data-js-todo-input
           />
         </form>
       </div>
@@ -39,6 +41,7 @@
               type="checkbox"
               name="task-1-done"
               id="task-1"
+              data-js-todo-item-checkbox
             />
             <span class="checkbox__emulator"></span>            
           </label>
@@ -48,31 +51,34 @@
             type="button"
             title="Удалить задачу"
             aria-label="Удалить задачу"
+            data-js-delete-task-button
           ></button>
         </li>
         <li class="todo__todo-item todo-item">
-          <label class="todo-item__checkbox checkbox" for="task-2">
+          <label class="todo-item__checkbox checkbox" for="task-1">
             <input
               class="checkbox__controller"
               type="checkbox"
-              name="task-2-done"
-              id="task-2"
+              name="task-1-done"
+              id="task-1"
+              data-js-todo-item-checkbox
             />
-            <span class="checkbox__emulator"></span>
+            <span class="checkbox__emulator"></span>            
           </label>
-          <span class="todo-item__label">Задача 2</span>
+          <span class="todo-item__label">Задача 1</span>
           <button
             class="todo-item__delete-task-button"
             type="button"
             title="Удалить задачу"
             aria-label="Удалить задачу"
+            data-js-delete-task-button
           ></button>
         </li>
       </ul>
       <div class="todo__footer">
         <div class="todo__items-left">
-          <span>Some</span>
-          <span>item(s)</span>
+          <span data-js-todo-items-count>Some</span>
+          <span data-js-todo-items-label>item(s)</span>
           <span>left</span>
         </div>
         <div class="todo__control-buttons control-buttons">
@@ -81,6 +87,7 @@
             type="button"
             title="Показать все задачи"
             aria-label="Показать все задачи"
+            data-js-show-all-tasks-button
           >
             Все
           </button>
@@ -89,6 +96,7 @@
             type="button"
             title="Показать активные задачи"
             aria-label="Показать активные задачи"
+            data-js-show-active-tasks-button
           >
             Активные
           </button>
@@ -97,6 +105,7 @@
             type="button"
             title="Показать выполненные задачи"
             aria-label="Показать выполненные задачи"
+            data-js-show-completed-tasks-button
           >
             Выполненные
           </button>
@@ -105,6 +114,7 @@
             type="button"
             title="Убрать выполненные задачи"
             aria-label="Убрать выполненные задачи"
+            data-js-remove-completed-tasks-button
           >
             Убрать выполненные
           </button>
