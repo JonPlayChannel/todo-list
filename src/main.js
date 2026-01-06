@@ -1,3 +1,10 @@
-import { getTasksFromLocalStorage } from "./storage";
+import { appendTasks, insertNoTasksElement } from "./list";
+import getTasksFromLocalStorage from "./storage";
 
-getTasksFromLocalStorage();
+const tasks = getTasksFromLocalStorage();
+
+if (tasks === null) {
+  insertNoTasksElement();
+} else {
+  appendTasks(tasks);
+}

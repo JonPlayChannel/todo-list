@@ -2,6 +2,14 @@ import selectors from "./selectors";
 
 const todoListElement = document.querySelector(selectors.todoList);
 
+const insertNoTasksElement = () => {
+  const noTasksElement = document.createElement('div');
+  noTasksElement.className = "no-tasks";
+  noTasksElement.textContent = "Список задач пуст"
+
+  todoListElement.replaceWith(noTasksElement);
+}
+
 const appendTasks = (tasks) => {
   tasks.forEach(task => {
     // Обёртка задачи
@@ -39,4 +47,7 @@ const appendTasks = (tasks) => {
   });
 }
 
-export default appendTasks;
+export {
+  insertNoTasksElement,
+  appendTasks
+};
