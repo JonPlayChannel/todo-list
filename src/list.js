@@ -14,9 +14,9 @@ const insertNoTasksElement = () => {
 }
 
 const appendTasks = () => {
-  const tasks = getTasksFromLocalStorage();
+  const tasksList = getTasksFromLocalStorage();
 
-  if (tasks === null) {
+  if (tasksList === null) {
     todoListElement.classList.add("visually-hidden");
     return;
   } else {
@@ -27,7 +27,10 @@ const appendTasks = () => {
   // Очистка списка
   todoListElement.innerHTML = "";
   
-  tasks?.forEach(task => {
+  // Отражение списка
+  const reversedTasksList = [...tasksList].reverse();
+
+  reversedTasksList?.forEach(task => {
     // Обёртка задачи
     const taskElement = document.createElement('li');
     taskElement.className = "todo__todo-item todo-item";

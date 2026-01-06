@@ -18,9 +18,6 @@ const addTask = () => {
 
   setTasksToLocalStorage(newTask);
   todoInputElement.value = '';
-  todoInputElement.blur();  
 }
 
-export {
-  addTask
-}
+export default addTask;

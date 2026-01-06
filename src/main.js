@@ -1,6 +1,6 @@
 import selectors from "./selectors";
 import { appendTasks } from "./list";
-import { addTask } from "./form";
+import addTask from "./form";
 
 const todoFormElement = document.querySelector(selectors.todoForm);
 
