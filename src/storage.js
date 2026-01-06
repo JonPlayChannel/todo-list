@@ -4,7 +4,7 @@ const getTasksFromLocalStorage = () => {
 }
 
 const setTasksToLocalStorage = (newTask) => {
-  const currentTasks = getTasksFromLocalStorage() ?? []
+  const currentTasks = getTasksFromLocalStorage() ?? [];
   
   const newTasks = [...currentTasks, newTask];
 
