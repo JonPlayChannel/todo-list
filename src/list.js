@@ -7,7 +7,7 @@ const noTasksElement = document.querySelector(selectors.noTasksElement);
 
 const insertNoTasksElement = () => {
   const noTasksElement = document.createElement('div');
-  noTasksElement.className = "no-tasks";
+  noTasksElement.className = cssClasses.noTasks;
   noTasksElement.textContent = "Список задач пуст";
   noTasksElement.dataset.jsNoTasksElement = '';
 

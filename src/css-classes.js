@@ -1,5 +1,6 @@
 const cssClasses = {
   visuallyHidden: "visually-hidden",
+  noTasks: "no-tasks",
   checkbox: "checkbox",
   checkboxController: "checkbox__controller",
   checkboxEmulator: "checkbox__emulator",
