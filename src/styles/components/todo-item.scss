@@ -16,6 +16,7 @@
     @include square(rem(32));
     background-color: var(--color-orange-100);
     border: none;
+    border-radius: 50%;
     transition-duration: var(--transition-duration);
     opacity: 0.75;
     cursor: pointer;

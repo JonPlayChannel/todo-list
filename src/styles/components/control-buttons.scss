@@ -1,0 +1,29 @@
+@use "../helpers" as *;
+
+.control-buttons {
+  display: flex;
+  flex-grow: 1;
+  column-gap: rem(16);
+
+  &__button {
+    padding:
+      calc(var(--padding-big) / 2)
+      var(--padding-small);
+    font-size: rem(20);
+    font-weight: 600;
+    color: var(--color-white);
+    background-color: var(--color-orange-100);
+    border: none;
+    border-radius: var(--border-radius);
+    transition-duration: var(--transition-duration);
+    cursor: pointer;
+
+    @include hover {
+      background-color: var(--color-orange-200);
+    }
+    
+    &--aside {
+      margin-left: auto;
+    }
+  }
+}

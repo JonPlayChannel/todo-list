@@ -45,7 +45,10 @@
 
   // Footer related
   &__footer {
-    padding-block: var(--padding-small);
+    padding: var(--padding-big) var(--padding-small);
+    display: flex;
+    align-items: center;
+    column-gap: rem(100);
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
   }

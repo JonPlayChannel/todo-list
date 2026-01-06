@@ -7,6 +7,7 @@
 
   --color-base: #EC8600;
   --color-orange-100: hsl(from var(--color-base) h calc(s + 30) l);
+  --color-orange-200: hsl(from var(--color-base) calc(h - 3) calc(s + 40) l);
   --color-background: hsl(from var(--color-base) h calc(s - 50) calc(l + 47));
 
   --font-family: "Rubik";
