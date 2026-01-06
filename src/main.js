@@ -7,5 +7,7 @@ const todoFormElement = document.querySelector(selectors.todoForm);
 todoFormElement.addEventListener("submit", (event) => {
   event.preventDefault();
   addTask();
+  appendTasks();
 });
+
 appendTasks();

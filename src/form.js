@@ -1,4 +1,3 @@
-import { appendTasks } from "./list";
 import selectors from "./selectors";
 import { setTasksToLocalStorage } from "./storage";
 

@@ -11,7 +11,6 @@ const setTasksToLocalStorage = (newTask) => {
   const newTasks = [...currentTasks, newTask];
 
   localStorage.setItem("snp-todo", JSON.stringify(newTasks));
-  appendTasks();
 }
 
 export {
