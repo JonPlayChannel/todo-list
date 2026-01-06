@@ -34,21 +34,25 @@ const appendTasks = () => {
   reversedTasksList?.forEach(task => {
     // Обёртка задачи
     const taskElement = document.createElement('li');
-    taskElement.className = "todo__todo-item todo-item";
+    taskElement.className = cssClasses.todoItem;
 
     // Чекбокс
     const taskCheckbox = document.createElement('label');
-    taskCheckbox.className = "todo-item__checkbox checkbox";
-    taskCheckbox.innerHTML = `
-      <input
-        class="checkbox__controller"
-        type="checkbox"
-        name="${task.id}-done" id="${task.id}"
-        ${task.isDone ? "checked" : ''}
-        data-js-todo-item-checkbox
-      />
-      <span class="checkbox__emulator"></span>
-    `;
+    taskCheckbox.classList.add(cssClasses.todoItemCheckbox, cssClasses.checkbox);
+
+    // input и span для чекбокса
+    const input = document.createElement("input");
+    const span = document.createElement("span");
+
+    input.className = cssClasses.checkboxController;
+    input.type = "checkbox";
+    input.name = `${task.id}-done`;
+    input.id = `${task.id}`;
+    input.dataset.jsTodoItemCheckbox = '';
+
+    span.className = cssClasses.checkboxEmulator;
+
+    taskCheckbox.append(input, span);
 
     // Подпись задачи
     const taskLabel = document.createElement('span');
@@ -56,7 +60,7 @@ const appendTasks = () => {
 
     // Кнопка удаления
     const deleteTaskButton = document.createElement('button');
-    deleteTaskButton.className = "todo-item__delete-task-button";
+    deleteTaskButton.className = cssClasses.deleteTaskButton;
     deleteTaskButton.type = "button";
     deleteTaskButton.title = "Удалить задачу";
     deleteTaskButton.ariaLabel = "Удалить задачу";
