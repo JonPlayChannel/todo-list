@@ -1,7 +1,7 @@
 import selectors from "./selectors";
 import {
   addTask,
-  loadTasks
+  initTaskList
 } from "./tasks";
 
 const todoFormElement = document.querySelector(selectors.todoForm);
@@ -11,4 +11,4 @@ todoFormElement.addEventListener("submit", (event) => {
   addTask();
 });
 
-loadTasks();
+initTaskList();

@@ -72,22 +72,6 @@ const showTasksList = () => {
   todoListElement.classList.remove(cssClasses.visuallyHidden);
 }
 
-const loadTasks = () => {
-  const tasksList = getTasksFromLocalStorage();  
-
-  if (tasksList === null) return;
-  else {
-    showTasksList();
-  }
-  
-  // Очистка списка
-  todoListElement.innerHTML = "";
-
-  tasksList.forEach(task => {
-    createNewTaskElement(task);
-  });
-}
-
 const addTask = () => {
   const label = todoInputElement.value.trim();
 
@@ -111,9 +95,20 @@ const addTask = () => {
   }
 }
 
+const initTaskList = () => {
+  const tasksList = getTasksFromLocalStorage();  
+
+  if (tasksList === null) return;
+  else {
+    showTasksList();
+  }
+
+  tasksList.forEach(task => {
+    createNewTaskElement(task);
+  });
+}
+
 export {
-  getTasksFromLocalStorage,
-  addTaskToLocalStorage,
-  loadTasks,
   addTask,
+  initTaskList
 };
