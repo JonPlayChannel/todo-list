@@ -19,7 +19,7 @@ const addTask = () => {
 
   setTasksToLocalStorage(newTask);
   todoInputElement.value = '';
-  todoInputElement.blur();
+  todoInputElement.blur();  
 }
 
 export {

@@ -20,6 +20,7 @@ const appendTasks = () => {
     todoListElement.classList.add("visually-hidden");
   } else {
     noTasksElement.remove();
+    todoListElement.classList.remove("visually-hidden");
   }
   
   // Очистка списка
