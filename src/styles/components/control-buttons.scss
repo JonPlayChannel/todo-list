@@ -6,9 +6,7 @@
   column-gap: rem(16);
 
   &__button {
-    padding:
-      calc(var(--padding-big) / 2)
-      var(--padding-small);
+    padding: calc(var(--padding-small) / 2);
     font-size: rem(20);
     font-weight: 600;
     color: var(--color-white);
