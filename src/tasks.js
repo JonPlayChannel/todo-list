@@ -1,0 +1,123 @@
+import selectors from "./selectors";
+import cssClasses from "./css-classes";
+
+const snpTodoKey = "snp-todo";
+
+const noTasksElement = document.querySelector(selectors.noTasksElement);
+const todoListElement = document.querySelector(selectors.todoList);
+const todoInputElement = document.querySelector(selectors.todoInput);
+
+const getTasksFromLocalStorage = () => {
+  const list = JSON.parse(localStorage.getItem(snpTodoKey));
+  return list;
+}
+
+const addTaskToLocalStorage = (newTask) => {
+  const currentTasks = getTasksFromLocalStorage() ?? [];
+  
+  const newTasks = [...currentTasks, newTask];
+
+  localStorage.setItem(snpTodoKey, JSON.stringify(newTasks));
+}
+
+const createNewTaskElement = (task) => {
+  const {
+    id,
+    label,
+    isDone
+  } = task;
+  
+  // Обёртка задачи
+  const newTaskElement = document.createElement('li');
+  newTaskElement.className = cssClasses.todoItem;
+
+  // Чекбокс
+  const taskCheckbox = document.createElement('label');
+  taskCheckbox.classList.add(cssClasses.todoItemCheckbox, cssClasses.checkbox);
+
+  // input и span для чекбокса
+  const input = document.createElement("input");
+  const span = document.createElement("span");
+
+  input.className = cssClasses.checkboxController;
+  input.type = "checkbox";
+  input.name = `${id}-done`;
+  input.id = `${id}`;
+  input.checked = isDone
+  input.dataset.jsTodoItemCheckbox = '';
+
+  span.className = cssClasses.checkboxEmulator;
+
+  taskCheckbox.append(input, span);
+
+  // Подпись задачи
+  const taskLabel = document.createElement('span');
+  taskLabel.textContent = label;
+
+  // Кнопка удаления
+  const deleteTaskButton = document.createElement('button');
+  deleteTaskButton.className = cssClasses.deleteTaskButton;
+  deleteTaskButton.type = "button";
+  deleteTaskButton.title = "Удалить задачу";
+  deleteTaskButton.ariaLabel = "Удалить задачу";
+  deleteTaskButton.dataset.jsDeleteTaskButton = '';
+
+  newTaskElement.append(taskCheckbox, taskLabel, deleteTaskButton);
+
+  todoListElement.prepend(newTaskElement);
+}
+
+const showTasksList = () => {
+  noTasksElement.remove();
+  todoListElement.classList.remove(cssClasses.visuallyHidden);
+}
+
+const loadTasks = () => {
+  const tasksList = getTasksFromLocalStorage();
+  console.log();
+  
+
+  if (tasksList === null) {
+    todoListElement.classList.add(cssClasses.visuallyHidden);
+    return;
+  } else {
+    showTasksList();
+  }
+  
+  // Очистка списка
+  todoListElement.innerHTML = "";
+
+  tasksList.forEach(task => {
+    createNewTaskElement(task);
+  });
+}
+
+const addTask = () => {
+  const label = todoInputElement.value.trim();
+
+  if (!label) {
+    alert("Пустое имя задачи.");
+    return;
+  }
+
+  const newTask = {
+    id: crypto.randomUUID() ?? new Date(),
+    label: label,
+    isDone: false
+  };
+
+  todoInputElement.value = '';
+  addTaskToLocalStorage(newTask);
+  createNewTaskElement(newTask);
+
+  if (todoListElement.classList.contains(cssClasses.visuallyHidden)) {
+    showTasksList();
+  }
+}
+
+export {
+  getTasksFromLocalStorage,
+  addTaskToLocalStorage,
+  loadTasks,
+  addTask,
+};

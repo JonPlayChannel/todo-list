@@ -1,13 +1,14 @@
 import selectors from "./selectors";
-import { appendTasks } from "./list";
-import addTask from "./form";
+import {
+  addTask,
+  loadTasks
+} from "./tasks";
 
 const todoFormElement = document.querySelector(selectors.todoForm);
 
 todoFormElement.addEventListener("submit", (event) => {
   event.preventDefault();
   addTask();
-  appendTasks();
 });
 
-appendTasks();
+loadTasks();
