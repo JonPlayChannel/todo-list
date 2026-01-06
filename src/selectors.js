@@ -7,6 +7,7 @@ const selectors = {
   deleteTaskButton: "[data-js-delete-task-button]",
   todoItemsCount: "[data-js-todo-items-count]",
   todoItemsLabel: "[data-js-todo-items-label]",
+  todoItemsLeft: "[data-js-todo-items-left]",
   showAllTasksButton: "[data-js-show-all-tasks-button]",
   showActiveTasksButton: "[data-js-show-active-tasks-button]",
   showCompletedTasksButton: "[data-js-show-completed-tasks-button]",
