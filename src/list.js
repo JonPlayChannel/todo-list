@@ -11,6 +11,9 @@ const insertNoTasksElement = () => {
 }
 
 const appendTasks = (tasks) => {
+  // Очистка списка
+  todoListElement.innerHTML = "";
+  
   tasks.forEach(task => {
     // Обёртка задачи
     const taskElement = document.createElement('li');
