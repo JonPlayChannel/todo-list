@@ -52,6 +52,10 @@ const countIncompleteTasks = () => {
   todoItemsLabelElement.innerHTML = items;
   todoItemsLeftElement.innerHTML = left;
   setClearCompletedTasksButtonVisible(tasksList);
+
+  if (tasksList.length === 0) {
+    todoFooterElement.classList.add(cssClasses.visuallyHidden);
+  }
 }
 
 const setClearCompletedTasksButtonVisible = (tasksList) => {

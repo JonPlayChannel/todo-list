@@ -232,6 +232,7 @@ const onRemoveCompletedTasksButtonClick = (event) => {
     if (isConfirmed) {
       removeCompletedTasksFromLocalStorage();
       showTaskList(null);
+      countIncompleteTasks();
     }
   }
 }
