@@ -19,6 +19,14 @@ const addTaskToLocalStorage = (newTask) => {
   localStorage.setItem(snpTodoKey, JSON.stringify(newTasks));
 }
 
+const deleteTaskFromLocalStorage = (taskId) => {
+  const currentTasks = getTasksFromLocalStorage();
+  
+  const updatedTasks = currentTasks.filter(task => task.id !== taskId);
+  
+  localStorage.setItem(snpTodoKey, JSON.stringify(updatedTasks));
+}
+
 const createNewTaskElement = (newTask) => {
   const {
     id,
@@ -103,11 +111,15 @@ const deleteTask = (event) => {
 
   if (isDeleteTaskButtonElement) {
     const todoItemElement = target.closest(selectors.todoItem);
+    const taskId = todoItemElement.querySelector(selectors.todoItemCheckbox)?.id;
+    console.log(taskId);
 
     const isConfimed = confirm("Удалить задачу?");
 
     if (isConfimed) {
       todoItemElement.remove();
+      deleteTaskFromLocalStorage(taskId);
+      countIncompleteTasks();
     }
   }
 }
