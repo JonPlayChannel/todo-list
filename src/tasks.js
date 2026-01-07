@@ -2,7 +2,6 @@ import selectors from "./selectors";
 import cssClasses from "./css-classes";
 import countIncompleteTasks from "./counter";
 
-let filter = null;
 const snpTodoKey = "snp-todo";
 
 const todoFormElement = document.querySelector(selectors.todoForm);
@@ -10,7 +9,9 @@ const todoListElement = document.querySelector(selectors.todoList);
 const todoInputElement = document.querySelector(selectors.todoInput);
 const todoFooterElement = document.querySelector(selectors.todoFooter);
 
+// ===========================================
 // Работа с localStorage
+// ===========================================
 const getTasksFromLocalStorage = () => JSON.parse(localStorage.getItem(snpTodoKey));
 
 const addTaskToLocalStorage = (newTask) => {
@@ -53,6 +54,7 @@ const removeCompletedTasksFromLocalStorage = () => {
 
 // ===========================================
 // Элементы задач
+// ===========================================
 
 const createNewTaskElement = (newTask) => {
   const {
@@ -107,6 +109,7 @@ const showTasksList = () => {
   todoFooterElement.classList.remove(cssClasses.visuallyHidden);
 }
 
+// ===========================================
 // Обработчики
 const addTask = () => {
   const label = todoInputElement.value.trim();
@@ -237,7 +240,10 @@ const onRemoveCompletedTasksButtonClick = (event) => {
   }
 }
 
+// ===========================================
 // Главная функция для добавления обработчиков событий в main.js
+// ===========================================
+
 const bindEvents = () => {
   // Загрузка задач
   document.addEventListener("DOMContentLoaded", () => {
@@ -269,6 +275,10 @@ const bindEvents = () => {
     addTask();
   });
 }
+
+// ===========================================
+// Экспорты
+// ===========================================
 
 export default bindEvents;
 
