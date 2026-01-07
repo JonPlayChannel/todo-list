@@ -1,3 +1,3 @@
-import bindEventListeners from "./tasks";
+import bindEvents from "./tasks";
 
-bindEventListeners();
+bindEvents();

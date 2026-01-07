@@ -125,7 +125,7 @@ const initTaskList = () => {
 }
 
 // Главная функция для добавления обработчиков событий в main.js
-const bindEventListeners = () => {
+const bindEvents = () => {
   // Загрузка задач
   document.addEventListener("DOMContentLoaded", initTaskList);
 
@@ -139,7 +139,7 @@ const bindEventListeners = () => {
   });
 }
 
-export default bindEventListeners;
+export default bindEvents;
 
 export {
   getTasksFromLocalStorage
