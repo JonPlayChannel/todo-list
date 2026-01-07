@@ -28,6 +28,7 @@ const createNewTaskElement = (newTask) => {
   // Обёртка задачи
   const newTaskElement = document.createElement('li');
   newTaskElement.className = cssClasses.todoItem;
+  newTaskElement.dataset.jsTodoItem = '';
 
   // Чекбокс
   const taskCheckbox = document.createElement('label');
