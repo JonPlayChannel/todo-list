@@ -2,6 +2,7 @@ import selectors from "./selectors";
 import cssClasses from "./css-classes";
 import countIncompleteTasks from "./counter";
 
+let filter = null;
 const snpTodoKey = "snp-todo";
 
 const todoFormElement = document.querySelector(selectors.todoForm);
@@ -9,6 +10,7 @@ const todoListElement = document.querySelector(selectors.todoList);
 const todoInputElement = document.querySelector(selectors.todoInput);
 const todoFooterElement = document.querySelector(selectors.todoFooter);
 
+// Работа с localStorage
 const getTasksFromLocalStorage = () => JSON.parse(localStorage.getItem(snpTodoKey));
 
 const addTaskToLocalStorage = (newTask) => {
@@ -26,6 +28,31 @@ const deleteTaskFromLocalStorage = (taskId) => {
   
   localStorage.setItem(snpTodoKey, JSON.stringify(updatedTasks));
 }
+
+const updateTaskCompleteInLocalStorage = (taskId, isDone) => {
+  const tasks = getTasksFromLocalStorage();
+
+  const updatedTasks = tasks.map((task) => {
+    if (task.id === taskId) {
+      return { ...task, isDone };
+    }
+
+    return task;
+  });
+
+  localStorage.setItem(snpTodoKey, JSON.stringify(updatedTasks));
+}
+
+const removeCompletedTasksFromLocalStorage = () => {
+  const currentTasks = getTasksFromLocalStorage();
+
+  const updatedTasks = currentTasks.filter(task => !task.isDone);
+  
+  localStorage.setItem(snpTodoKey, JSON.stringify(updatedTasks));
+}
+
+// ===========================================
+// Элементы задач
 
 const createNewTaskElement = (newTask) => {
   const {
@@ -80,6 +107,7 @@ const showTasksList = () => {
   todoFooterElement.classList.remove(cssClasses.visuallyHidden);
 }
 
+// Обработчики
 const addTask = () => {
   const label = todoInputElement.value.trim();
 
@@ -102,6 +130,8 @@ const addTask = () => {
   if (todoListElement.classList.contains(cssClasses.visuallyHidden)) {
     showTasksList();
   }
+
+  showTaskList(null);
 }
 
 const deleteTask = (event) => {
@@ -112,7 +142,6 @@ const deleteTask = (event) => {
   if (isDeleteTaskButtonElement) {
     const todoItemElement = target.closest(selectors.todoItem);
     const taskId = todoItemElement.querySelector(selectors.todoItemCheckbox)?.id;
-    console.log(taskId);
 
     const isConfimed = confirm("Удалить задачу?");
 
@@ -124,7 +153,20 @@ const deleteTask = (event) => {
   }
 }
 
-const initTaskList = () => {
+const toggleTaskComplete = (event) => {
+  const { target } = event;
+
+  const isTodoItemCheckboxElement = target.matches(selectors.todoItemCheckbox);
+
+  if (isTodoItemCheckboxElement) {
+    const { id, checked } = target;
+    
+    updateTaskCompleteInLocalStorage(id, checked);
+    countIncompleteTasks();
+  }
+}
+
+const showTaskList = (filter) => {
   const tasksList = getTasksFromLocalStorage();  
 
   if (tasksList === null) return;
@@ -132,17 +174,93 @@ const initTaskList = () => {
     showTasksList();
   }
 
-  tasksList.forEach(task => createNewTaskElement(task));
-  countIncompleteTasks();
+  todoListElement.innerHTML = "";
+  
+  if (!filter) {
+    tasksList.forEach(task => createNewTaskElement(task));
+  }
+
+  if (filter === "active") {
+    const filteredTasks = tasksList.filter(({isDone}) => !isDone);
+    filteredTasks.forEach(task => createNewTaskElement(task));
+  }
+
+  if (filter === "completed") {
+    const filteredTasks = tasksList.filter(({isDone}) => isDone);
+    filteredTasks.forEach(task => createNewTaskElement(task));
+  }
+}
+
+const onShowAllTasksButtonClick = (event) => {
+  const { target } = event;
+
+  const isShowAllTasksButtonElement = target.matches(selectors.showAllTasksButton);
+
+  if (isShowAllTasksButtonElement) {
+    showTaskList(null);
+  }
+}
+
+const onShowActiveTasksButtonClick = (event) => {
+  const { target } = event;
+
+  const isShowActiveTasksButtonElement = target.matches(selectors.showActiveTasksButton);
+
+  if (isShowActiveTasksButtonElement) {
+    showTaskList("active");
+  }
+}
+
+const onShowCompletedTasksButtonClick = (event) => {
+  const { target } = event;
+
+  const isShowCompletedTasksButtonElement = target.matches(selectors.showCompletedTasksButton);
+
+  if (isShowCompletedTasksButtonElement) {
+    showTaskList("completed");
+  }
+}
+
+const onRemoveCompletedTasksButtonClick = (event) => {
+  const { target } = event;
+
+  const isRemoveCompletedTasksButtonElement = target.matches(selectors.removeCompletedTasksButton);
+
+  if (isRemoveCompletedTasksButtonElement) {
+    const isConfirmed = confirm("Удалить выполненные задачи?");
+    
+    if (isConfirmed) {
+      removeCompletedTasksFromLocalStorage();
+      showTaskList(null);
+    }
+  }
 }
 
 // Главная функция для добавления обработчиков событий в main.js
 const bindEvents = () => {
   // Загрузка задач
-  document.addEventListener("DOMContentLoaded", initTaskList);
+  document.addEventListener("DOMContentLoaded", () => {
+    showTaskList(null);
+    countIncompleteTasks();
+  });
+
+  // Переключение задачи
+  document.addEventListener("click", toggleTaskComplete);
 
   // Клик по кнопке удаления
   document.addEventListener("click", deleteTask);
+
+  // Показать все задачи
+  document.addEventListener("click", onShowAllTasksButtonClick);
+
+  // Показать невыполненные задачи
+  document.addEventListener("click", onShowActiveTasksButtonClick);
+
+  // Показать выполненные задачи
+  document.addEventListener("click", onShowCompletedTasksButtonClick);
+
+  // Убрать выполненные задачи
+  document.addEventListener("click", onRemoveCompletedTasksButtonClick);
 
   // Форма
   todoFormElement.addEventListener("submit", (event) => {
