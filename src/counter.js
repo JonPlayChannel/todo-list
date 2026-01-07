@@ -41,8 +41,6 @@ const chooseWordsCase = (incompleteTasks) => {
   return [items, left];
 }
 
-
-
 const countIncompleteTasks = () => {
   const tasksList = getTasksFromLocalStorage();
   const incompleteTasks = tasksList.filter(({isDone}) => !isDone);
@@ -66,6 +64,4 @@ const setClearCompletedTasksButtonVisible = (tasksList) => {
   }
 }
 
-export {
-  countIncompleteTasks
-};
+export default countIncompleteTasks;

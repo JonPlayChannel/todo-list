@@ -1,9 +1,10 @@
 import selectors from "./selectors";
 import cssClasses from "./css-classes";
-import { countIncompleteTasks } from "./counter";
+import countIncompleteTasks from "./counter";
 
 const snpTodoKey = "snp-todo";
 
+const todoFormElement = document.querySelector(selectors.todoForm);
 const todoListElement = document.querySelector(selectors.todoList);
 const todoInputElement = document.querySelector(selectors.todoInput);
 const todoFooterElement = document.querySelector(selectors.todoFooter);
@@ -95,6 +96,22 @@ const addTask = () => {
   }
 }
 
+const deleteTask = (event) => {
+  const { target } = event;
+
+  const isDeleteTaskButtonElement = target.matches(selectors.deleteTaskButton);
+
+  if (isDeleteTaskButtonElement) {
+    const todoItemElement = target.closest(selectors.todoItem);
+
+    const isConfimed = confirm("Удалить задачу?");
+
+    if (isConfimed) {
+      todoItemElement.remove();
+    }
+  }
+}
+
 const initTaskList = () => {
   const tasksList = getTasksFromLocalStorage();  
 
@@ -107,8 +124,23 @@ const initTaskList = () => {
   countIncompleteTasks();
 }
 
+// Главная функция для добавления обработчиков событий в main.js
+const bindEventListeners = () => {
+  // Загрузка задач
+  document.addEventListener("DOMContentLoaded", initTaskList);
+
+  // Клик по кнопке удаления
+  document.addEventListener("click", deleteTask);
+
+  // Форма
+  todoFormElement.addEventListener("submit", (event) => {
+    event.preventDefault();
+    addTask();
+  });
+}
+
+export default bindEventListeners;
+
 export {
-  getTasksFromLocalStorage,
-  addTask,
-  initTaskList
+  getTasksFromLocalStorage
 };
