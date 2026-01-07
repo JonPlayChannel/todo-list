@@ -4,7 +4,6 @@ import { countIncompleteTasks } from "./counter";
 
 const snpTodoKey = "snp-todo";
 
-const noTasksElement = document.querySelector(selectors.noTasksElement);
 const todoListElement = document.querySelector(selectors.todoList);
 const todoInputElement = document.querySelector(selectors.todoInput);
 const todoFooterElement = document.querySelector(selectors.todoFooter);
@@ -67,7 +66,6 @@ const createNewTaskElement = (newTask) => {
 }
 
 const showTasksList = () => {
-  noTasksElement.remove();
   todoListElement.classList.remove(cssClasses.visuallyHidden);
   todoFooterElement.classList.remove(cssClasses.visuallyHidden);
 }

@@ -13,7 +13,6 @@ const selectors = {
   showActiveTasksButton: "[data-js-show-active-tasks-button]",
   showCompletedTasksButton: "[data-js-show-completed-tasks-button]",
   removeCompletedTasksButton: "[data-js-remove-completed-tasks-button]",
-  noTasksElement: "[data-js-no-tasks-element]",
 };
 
 export default selectors;
