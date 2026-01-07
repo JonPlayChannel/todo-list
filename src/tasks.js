@@ -21,7 +21,7 @@ const addTaskToLocalStorage = (newTask) => {
 
 const deleteTaskFromLocalStorage = (taskId) => {
   const currentTasks = getTasksFromLocalStorage();
-  
+
   const updatedTasks = currentTasks.filter(task => task.id !== taskId);
   
   localStorage.setItem(snpTodoKey, JSON.stringify(updatedTasks));
