@@ -1,6 +1,6 @@
 import selectors from "./selectors";
 import cssClasses from "./css-classes";
-import countIncompleteTasks from "./counter";
+import { countIncompleteTasks } from "./counter";
 
 const snpTodoKey = "snp-todo";
 
