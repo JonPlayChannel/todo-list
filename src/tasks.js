@@ -7,10 +7,7 @@ const noTasksElement = document.querySelector(selectors.noTasksElement);
 const todoListElement = document.querySelector(selectors.todoList);
 const todoInputElement = document.querySelector(selectors.todoInput);
 
-const getTasksFromLocalStorage = () => {
-  const list = JSON.parse(localStorage.getItem(snpTodoKey));
-  return list;
-}
+const getTasksFromLocalStorage = () => JSON.parse(localStorage.getItem(snpTodoKey));
 
 const addTaskToLocalStorage = (newTask) => {
   const currentTasks = getTasksFromLocalStorage() ?? [];
@@ -20,12 +17,12 @@ const addTaskToLocalStorage = (newTask) => {
   localStorage.setItem(snpTodoKey, JSON.stringify(newTasks));
 }
 
-const createNewTaskElement = (task) => {
+const createNewTaskElement = (newTask) => {
   const {
     id,
     label,
     isDone
-  } = task;
+  } = newTask;
   
   // Обёртка задачи
   const newTaskElement = document.createElement('li');
@@ -103,9 +100,7 @@ const initTaskList = () => {
     showTasksList();
   }
 
-  tasksList.forEach(task => {
-    createNewTaskElement(task);
-  });
+  tasksList.forEach(task => createNewTaskElement(task));
 }
 
 export {
