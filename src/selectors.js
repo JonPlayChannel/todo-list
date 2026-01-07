@@ -5,6 +5,7 @@ const selectors = {
   todoList: "[data-js-todo-list]",
   todoItemCheckbox: "[data-js-todo-item-checkbox]",
   deleteTaskButton: "[data-js-delete-task-button]",
+  todoFooter: "[data-js-todo-footer]",
   todoItemsCount: "[data-js-todo-items-count]",
   todoItemsLabel: "[data-js-todo-items-label]",
   todoItemsLeft: "[data-js-todo-items-left]",
