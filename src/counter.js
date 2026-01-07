@@ -43,8 +43,7 @@ const chooseWordsCase = (incompleteTasks) => {
 
 const countIncompleteTasks = () => {
   const tasksList = getTasksFromLocalStorage();
-  const incompleteTasks = tasksList.filter(({isDone}) => !isDone);
-  const incompleteTasksCount = incompleteTasks.length;
+  const incompleteTasksCount = tasksList.filter(({isDone}) => !isDone).length;
 
   const [ items, left ] = chooseWordsCase(incompleteTasksCount);
   
