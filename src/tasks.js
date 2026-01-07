@@ -104,69 +104,9 @@ const createNewTaskElement = (newTask) => {
   todoListElement.prepend(newTaskElement);
 }
 
-const showTasksList = () => {
+const removeVisuallyHiddenClass = () => {
   todoListElement.classList.remove(cssClasses.visuallyHidden);
   todoFooterElement.classList.remove(cssClasses.visuallyHidden);
-}
-
-// ===========================================
-// Обработчики
-const addTask = () => {
-  const label = todoInputElement.value.trim();
-
-  if (!label) {
-    alert("Пустое имя задачи.");
-    return;
-  }
-
-  const newTask = {
-    id: crypto?.randomUUID() ?? new Date(),
-    label: label,
-    isDone: false
-  };
-
-  todoInputElement.value = '';
-  addTaskToLocalStorage(newTask);
-  createNewTaskElement(newTask);
-  countIncompleteTasks();
-
-  if (todoListElement.classList.contains(cssClasses.visuallyHidden)) {
-    showTasksList();
-  }
-
-  showTaskList(null);
-}
-
-const deleteTask = (event) => {
-  const { target } = event;
-
-  const isDeleteTaskButtonElement = target.matches(selectors.deleteTaskButton);
-
-  if (isDeleteTaskButtonElement) {
-    const todoItemElement = target.closest(selectors.todoItem);
-    const taskId = todoItemElement.querySelector(selectors.todoItemCheckbox)?.id;
-
-    const isConfimed = confirm("Удалить задачу?");
-
-    if (isConfimed) {
-      todoItemElement.remove();
-      deleteTaskFromLocalStorage(taskId);
-      countIncompleteTasks();
-    }
-  }
-}
-
-const toggleTaskComplete = (event) => {
-  const { target } = event;
-
-  const isTodoItemCheckboxElement = target.matches(selectors.todoItemCheckbox);
-
-  if (isTodoItemCheckboxElement) {
-    const { id, checked } = target;
-    
-    updateTaskCompleteInLocalStorage(id, checked);
-    countIncompleteTasks();
-  }
 }
 
 const showTaskList = (filter) => {
@@ -174,7 +114,7 @@ const showTaskList = (filter) => {
 
   if (tasksList === null) return;
   else {
-    showTasksList();
+    removeVisuallyHiddenClass();
   }
 
   todoListElement.innerHTML = "";
@@ -194,13 +134,75 @@ const showTaskList = (filter) => {
   }
 }
 
+// ===========================================
+// Обработчики
+const onTodoFormSubmit = (event) => {
+  event.preventDefault();
+
+  const label = todoInputElement.value.trim();
+
+  if (!label) {
+    alert("Пустое имя задачи.");
+    return;
+  }
+
+  const newTask = {
+    id: crypto?.randomUUID() ?? new Date(),
+    label: label,
+    isDone: false
+  };
+
+  todoInputElement.value = '';
+  addTaskToLocalStorage(newTask);
+  createNewTaskElement(newTask);
+  countIncompleteTasks();
+
+  if (todoListElement.classList.contains(cssClasses.visuallyHidden)) {
+    removeVisuallyHiddenClass();
+  }
+
+  showTaskList(null);
+}
+
+const onDeleteTaskButtonClick = (event) => {
+  const { target } = event;
+
+  const isDeleteTaskButtonElement = target.matches(selectors.deleteTaskButton);
+
+  if (isDeleteTaskButtonElement) {
+    const todoItemElement = target.closest(selectors.todoItem);
+    const taskId = todoItemElement.querySelector(selectors.todoItemCheckbox)?.id;
+
+    const isConfimed = confirm("Удалить задачу?");
+
+    if (isConfimed) {
+      todoItemElement.remove();
+      deleteTaskFromLocalStorage(taskId);
+      countIncompleteTasks();
+    }
+  }
+}
+
+const onTodoItemCheckboxClick = (event) => {
+  const { target } = event;
+
+  const isTodoItemCheckboxElement = target.matches(selectors.todoItemCheckbox);
+
+  if (isTodoItemCheckboxElement) {
+    const { id, checked } = target;
+    
+    updateTaskCompleteInLocalStorage(id, checked);
+    countIncompleteTasks();
+  }
+}
+
 const onShowAllTasksButtonClick = (event) => {
   const { target } = event;
 
   const isShowAllTasksButtonElement = target.matches(selectors.showAllTasksButton);
 
   if (isShowAllTasksButtonElement) {
-    showTaskList(null);
+    showTaskList();
   }
 }
 
@@ -247,15 +249,15 @@ const onRemoveCompletedTasksButtonClick = (event) => {
 const bindEvents = () => {
   // Загрузка задач
   document.addEventListener("DOMContentLoaded", () => {
-    showTaskList(null);
+    showTaskList();
     countIncompleteTasks();
   });
 
   // Переключение задачи
-  document.addEventListener("click", toggleTaskComplete);
+  document.addEventListener("click", onTodoItemCheckboxClick);
 
   // Клик по кнопке удаления
-  document.addEventListener("click", deleteTask);
+  document.addEventListener("click", onDeleteTaskButtonClick);
 
   // Показать все задачи
   document.addEventListener("click", onShowAllTasksButtonClick);
@@ -270,10 +272,7 @@ const bindEvents = () => {
   document.addEventListener("click", onRemoveCompletedTasksButtonClick);
 
   // Форма
-  todoFormElement.addEventListener("submit", (event) => {
-    event.preventDefault();
-    addTask();
-  });
+  todoFormElement.addEventListener("submit", onTodoFormSubmit);
 }
 
 // ===========================================
