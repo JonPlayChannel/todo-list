@@ -15,7 +15,7 @@ const todoInputElement = document.querySelector(selectors.todoInput);
 const todoFooterElement = document.querySelector(selectors.todoFooter);
 
 // ===========================================
-// Элементы задач
+// Отображение задач
 // ===========================================
 
 const createNewTaskElement = (newTask) => {
@@ -40,7 +40,6 @@ const createNewTaskElement = (newTask) => {
 
   input.className = cssClasses.checkboxController;
   input.type = "checkbox";
-  input.name = `${id}-done`;
   input.id = `${id}`;
   input.checked = isDone
   input.dataset.jsTodoItemCheckbox = "";
@@ -66,6 +65,14 @@ const createNewTaskElement = (newTask) => {
   newTaskElement.append(taskCheckbox, taskLabel, deleteTaskButton);
 
   todoListElement.prepend(newTaskElement);
+}
+
+const changeLabelStyles = (labelElement, isDone) => {
+  if (isDone) {
+    labelElement.classList.add(cssClasses.todoItemLabelCompleted);
+  } else {
+    labelElement.classList.remove(cssClasses.todoItemLabelCompleted);;
+  }
 }
 
 const removeVisuallyHiddenClass = () => {
