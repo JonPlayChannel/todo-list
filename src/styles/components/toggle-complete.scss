@@ -21,6 +21,10 @@
     }
   }
 
+  @include desktop-below {
+    width: fluid(100, 50);
+  }
+
   &__emulator {
     position: relative;
 

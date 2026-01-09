@@ -17,5 +17,9 @@ body {
 h1, .h1 {
   font-size: rem(64);
   font-weight: 700;
-  color: var(--color-orange-100)
+  color: var(--color-orange-100);
+
+  @include desktop-below {
+    font-size: fluid(64, 36);
+  }
 }
