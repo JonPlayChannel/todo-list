@@ -166,7 +166,8 @@ export {
   showTaskList,
   getTasksFromLocalStorage,
   onTodoFormSubmit,
-  onDeleteTaskButtonClick,
   onTodoItemCheckboxClick,
+  onTodoLabelDblclick,
+  onDeleteTaskButtonClick,
   onRemoveCompletedTasksButtonClick
 };

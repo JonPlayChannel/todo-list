@@ -2,8 +2,9 @@ import selectors from "./selectors";
 import {
   showTaskList,
   onTodoFormSubmit,
-  onDeleteTaskButtonClick,
   onTodoItemCheckboxClick,
+  onTodoLabelDblclick,
+  onDeleteTaskButtonClick,
   onRemoveCompletedTasksButtonClick
 } from "./tasks";
 import countIncompleteTasks from "./counter";
@@ -17,7 +18,7 @@ const bindEvents = () => {
     countIncompleteTasks();
   });
 
-  // Переключение задачи
+  // Клики по элементам страницы
   document.addEventListener("click", (event) => {
     const { target } = event;
 
@@ -51,6 +52,15 @@ const bindEvents = () => {
       return onRemoveCompletedTasksButtonClick();
     }
   });
+
+  // Двойной клик для редактирования задачи
+  document.addEventListener("dblclick", (event) => {
+    const { target } = event;
+
+    if (target.matches(selectors.todoItemLabel)) {
+      target.contentEditable = true;
+    }
+  })
 
   // Отправка формы
   todoFormElement.addEventListener("submit", onTodoFormSubmit);
