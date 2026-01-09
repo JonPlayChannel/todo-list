@@ -19,6 +19,7 @@
     position: relative;
     margin-left: auto;
     @include square(rem(32));
+    flex-shrink: 0;
     background-color: var(--color-orange-100);
     border: none;
     border-radius: 50%;
