@@ -1,7 +1,9 @@
 import selectors from "./selectors";
 import {
   showTaskList,
+  checkAllTasksCompleted,
   onTodoFormSubmit,
+  onToggleCompleteClick,
   onTodoItemCheckboxClick,
   onTodoItemLabelDblclick,
   onTodoItemLabelBlur,
@@ -9,23 +11,61 @@ import {
   onRemoveCompletedTasksButtonClick
 } from "./tasks";
 import countIncompleteTasks from "./counter";
+import cssClasses from "./css-classes";
 
 const todoFormElement = document.querySelector(selectors.todoForm);
 
+let lastTouchTime = 0;
+let doubleTapTimeout;
+const DOUBLE_TAP_DELAY = 400;
+
+const handleDoubleClick = (target) => {
+  const now = Date.now();
+      
+  if (now - lastTouchTime < DOUBLE_TAP_DELAY) {
+    clearTimeout(doubleTapTimeout);
+    onTodoItemLabelDblclick(target);
+    lastTouchTime = 0;
+    return;
+  }
+  
+  lastTouchTime = now;
+  doubleTapTimeout = setTimeout(() => {
+    lastTouchTime = 0;
+  }, DOUBLE_TAP_DELAY);
+}
+
 const bindEvents = () => {
   // Загрузка задач
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {    
     showTaskList();
     countIncompleteTasks();
+    checkAllTasksCompleted();
   });
 
   // Клики по элементам страницы
   document.addEventListener("click", (event) => {
     const { target } = event;
 
+    // Сброс класса для надписи задачи
+    if (!target.matches(selectors.todoItemLabel)) {
+      document.querySelectorAll(selectors.todoItemLabel).forEach(label => {
+        label.classList.remove(cssClasses.todoItemLabelEditable);
+      });
+    }
+    
+    if (target.matches(selectors.toggleComplete)) {
+      return onToggleCompleteClick(target);
+    }
+
     // Переключение состояния задачи
     if (target.matches(selectors.todoItemCheckbox)) {
       return onTodoItemCheckboxClick(target);
+    }
+
+    // Двойнок клик по задаче
+    if (target.matches(selectors.todoItemLabel)) {
+      return handleDoubleClick(target);
     }
 
     // Удаленние задачи
@@ -51,15 +91,6 @@ const bindEvents = () => {
     // Удаление выполненных задач
     if (target.matches(selectors.removeCompletedTasksButton)) {
       return onRemoveCompletedTasksButtonClick();
-    }
-  });
-
-  // Двойной клик для редактирования задачи
-  document.addEventListener("dblclick", (event) => {
-    const { target } = event;
-
-    if (target.matches(selectors.todoItemLabel)) {      
-      return onTodoItemLabelDblclick(target);
     }
   });
 

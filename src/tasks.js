@@ -9,12 +9,13 @@ import {
   removeCompletedTasksFromLocalStorage
 } from "./storage";
 
+const toggleCompleteElement = document.querySelector(selectors.toggleComplete);
 const todoListElement = document.querySelector(selectors.todoList);
 const todoInputElement = document.querySelector(selectors.todoInput);
 const todoFooterElement = document.querySelector(selectors.todoFooter);
 
 // ===========================================
-// Элементы задач
+// Отображение задач
 // ===========================================
 
 const createNewTaskElement = (newTask) => {
@@ -39,7 +40,6 @@ const createNewTaskElement = (newTask) => {
 
   input.className = cssClasses.checkboxController;
   input.type = "checkbox";
-  input.name = `${id}-done`;
   input.id = `${id}`;
   input.checked = isDone
   input.dataset.jsTodoItemCheckbox = "";
@@ -50,7 +50,7 @@ const createNewTaskElement = (newTask) => {
 
   // Подпись задачи
   const taskLabel = document.createElement("span");
-  taskLabel.className = cssClasses.todoItemLabel;
+  taskLabel.className = `${cssClasses.todoItemLabel} ${isDone && cssClasses.todoItemLabelCompleted}`
   taskLabel.textContent = label;
   taskLabel.dataset.jsTodoItemLabel = "";
 
@@ -65,6 +65,14 @@ const createNewTaskElement = (newTask) => {
   newTaskElement.append(taskCheckbox, taskLabel, deleteTaskButton);
 
   todoListElement.prepend(newTaskElement);
+}
+
+const changeLabelStyles = (labelElement, isDone) => {
+  if (isDone) {
+    labelElement.classList.add(cssClasses.todoItemLabelCompleted);
+  } else {
+    labelElement.classList.remove(cssClasses.todoItemLabelCompleted);
+  }
 }
 
 const removeVisuallyHiddenClass = () => {
@@ -129,13 +137,49 @@ const onTodoFormSubmit = (event) => {
   }
 
   showTaskList();
+  toggleCompleteElement.checked = false;
+}
+
+const checkAllTasksCompleted = () => {
+  const tasks = getTasksFromLocalStorage();
+  let allTasksCompleted = true;
+
+  for (const task of tasks) {
+    if (!task.isDone) {
+      allTasksCompleted = false;
+      break;
+    }
+  }
+
+  toggleCompleteElement.checked = allTasksCompleted;
+}
+
+const onToggleCompleteClick = (target) => {
+  const { checked } = target;
+
+  const labels = document.querySelectorAll(selectors.todoItemLabel);
+  const checkboxes = document.querySelectorAll(selectors.todoItemCheckbox);
+  const tasks = getTasksFromLocalStorage();
+
+  labels.forEach(label => changeLabelStyles(label, checked));
+  checkboxes.forEach(checkbox => checkbox.checked = checked);
+
+  tasks.forEach(({id}) => {
+    updateTaskInLocalStorage(id, { isDone: checked });
+  });
+
+  countIncompleteTasks();
 }
 
 const onTodoItemCheckboxClick = (target) => {
+  const todoItemElement = target.closest(selectors.todoItem);
+  const taskLabel = todoItemElement.querySelector(selectors.todoItemLabel);
   const { id, checked } = target;
     
   updateTaskInLocalStorage(id, { isDone: checked });
+  changeLabelStyles(taskLabel, checked);
   countIncompleteTasks();
+  checkAllTasksCompleted();
 }
 
 const onTodoItemLabelDblclick = (target) => {
@@ -159,7 +203,6 @@ const onTodoItemLabelBlur = (target) => {
   });
 };
 
-
 const onDeleteTaskButtonClick = (target) => {
   const todoItemElement = target.closest(selectors.todoItem);
   const taskId = todoItemElement.querySelector(selectors.todoItemCheckbox)?.id;
@@ -171,6 +214,7 @@ const onDeleteTaskButtonClick = (target) => {
     todoItemElement.remove();
     deleteTaskFromLocalStorage(taskId);
     countIncompleteTasks();
+    checkAllTasksCompleted();
   }
 }
 
@@ -181,13 +225,16 @@ const onRemoveCompletedTasksButtonClick = () => {
     removeCompletedTasksFromLocalStorage();
     showTaskList();
     countIncompleteTasks();
+    toggleCompleteElement.checked = false;
   }
 }
 
 export {
   showTaskList,
   getTasksFromLocalStorage,
+  checkAllTasksCompleted,
   onTodoFormSubmit,
+  onToggleCompleteClick,
   onTodoItemCheckboxClick,
   onTodoItemLabelDblclick,
   onTodoItemLabelBlur,
