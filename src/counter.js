@@ -15,27 +15,27 @@ const chooseWordsCase = (incompleteTasks) => {
 
   switch (true) {
     case incompleteTasks % 10 === 1 && incompleteTasks !== 11:
-      items = 'задача';
-      left = 'осталась';
+      items = "задача";
+      left = "осталась";
       break;
     
     case incompleteTasks % 100 === 11
         || incompleteTasks % 100 === 12
         || incompleteTasks % 100 === 13:
-      items = 'задач';
-      left = 'осталось';
+      items = "задач";
+      left = "осталось";
       break;
       
     case (incompleteTasks % 10 === 2)
         || (incompleteTasks % 10 === 3)
         || (incompleteTasks % 10 === 4):
-      items = 'задачи';
-      left = 'осталось';
+      items = "задачи";
+      left = "осталось";
       break;
       
     default:
-      items = 'задач';
-      left = 'осталось';
+      items = "задач";
+      left = "осталось";
   }
 
   return [items, left];

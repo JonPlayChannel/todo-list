@@ -25,12 +25,12 @@ const createNewTaskElement = (newTask) => {
   } = newTask;
   
   // Обёртка задачи
-  const newTaskElement = document.createElement('li');
+  const newTaskElement = document.createElement("li");
   newTaskElement.className = cssClasses.todoItem;
-  newTaskElement.dataset.jsTodoItem = '';
+  newTaskElement.dataset.jsTodoItem = "";
 
   // Чекбокс
-  const taskCheckbox = document.createElement('label');
+  const taskCheckbox = document.createElement("label");
   taskCheckbox.classList.add(cssClasses.todoItemCheckbox, cssClasses.checkbox);
 
   // input и span для чекбокса
@@ -42,25 +42,25 @@ const createNewTaskElement = (newTask) => {
   input.name = `${id}-done`;
   input.id = `${id}`;
   input.checked = isDone
-  input.dataset.jsTodoItemCheckbox = '';
+  input.dataset.jsTodoItemCheckbox = "";
 
   span.className = cssClasses.checkboxEmulator;
 
   taskCheckbox.append(input, span);
 
   // Подпись задачи
-  const taskLabel = document.createElement('span');
+  const taskLabel = document.createElement("span");
   taskLabel.className = cssClasses.todoItemLabel;
   taskLabel.textContent = label;
-  taskLabel.dataset.jsTodoItemLabel = '';
+  taskLabel.dataset.jsTodoItemLabel = "";
 
   // Кнопка удаления
-  const deleteTaskButton = document.createElement('button');
+  const deleteTaskButton = document.createElement("button");
   deleteTaskButton.className = cssClasses.deleteTaskButton;
   deleteTaskButton.type = "button";
   deleteTaskButton.title = "Удалить задачу";
   deleteTaskButton.ariaLabel = "Удалить задачу";
-  deleteTaskButton.dataset.jsDeleteTaskButton = '';
+  deleteTaskButton.dataset.jsDeleteTaskButton = "";
 
   newTaskElement.append(taskCheckbox, taskLabel, deleteTaskButton);
 
@@ -117,7 +117,7 @@ const onTodoFormSubmit = (event) => {
     isDone: false
   };
 
-  todoInputElement.value = '';
+  todoInputElement.value = "";
   addTaskToLocalStorage(newTask);
   createNewTaskElement(newTask);
   countIncompleteTasks();
