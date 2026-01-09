@@ -13,6 +13,7 @@
   &__label {
     width: 100%;
     padding: calc(var(--padding-small) / 2);
+    transition-duration: var(--transition-duration);
 
     &--editable {
       border: var(--border-orange-100);
