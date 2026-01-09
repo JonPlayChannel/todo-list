@@ -13,6 +13,11 @@
   &__label {
     width: 100%;
     padding: calc(var(--padding-small) / 2);
+
+    &--editable {
+      border: var(--border-orange-100);
+      outline: 0;
+    }
   }
 
   &__delete-task-button {
