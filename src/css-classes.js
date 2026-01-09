@@ -6,6 +6,7 @@ const cssClasses = {
   checkboxEmulator: "checkbox__emulator",
   todoItem: "todo__todo-item todo-item",
   todoItemCheckbox: "todo-item__checkbox",
+  todoItemLabel: "todo-item__label",
   deleteTaskButton: "todo-item__delete-task-button",
 };
 

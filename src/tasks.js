@@ -9,7 +9,6 @@ import {
   removeCompletedTasksFromLocalStorage
 } from "./storage";
 
-const todoFormElement = document.querySelector(selectors.todoForm);
 const todoListElement = document.querySelector(selectors.todoList);
 const todoInputElement = document.querySelector(selectors.todoInput);
 const todoFooterElement = document.querySelector(selectors.todoFooter);
@@ -51,7 +50,9 @@ const createNewTaskElement = (newTask) => {
 
   // Подпись задачи
   const taskLabel = document.createElement('span');
+  taskLabel.className = cssClasses.todoItemLabel;
   taskLabel.textContent = label;
+  taskLabel.dataset.jsTodoItemLabel = '';
 
   // Кнопка удаления
   const deleteTaskButton = document.createElement('button');
@@ -98,6 +99,8 @@ const showTaskList = (filter) => {
 
 // ===========================================
 // Обработчики
+// ===========================================
+
 const onTodoFormSubmit = (event) => {
   event.preventDefault();
 
@@ -134,8 +137,9 @@ const onDeleteTaskButtonClick = (event) => {
   if (isDeleteTaskButtonElement) {
     const todoItemElement = target.closest(selectors.todoItem);
     const taskId = todoItemElement.querySelector(selectors.todoItemCheckbox)?.id;
+    const taskLabel = todoItemElement.querySelector(selectors.todoItemLabel)?.textContent;
 
-    const isConfimed = confirm("Удалить задачу?");
+    const isConfimed = confirm(`Удалить задачу "${taskLabel}"?`);
 
     if (isConfimed) {
       todoItemElement.remove();
@@ -204,45 +208,14 @@ const onRemoveCompletedTasksButtonClick = (event) => {
   }
 }
 
-// ===========================================
-// Главная функция для добавления обработчиков событий в main.js
-// ===========================================
-
-const bindEvents = () => {
-  // Загрузка задач
-  document.addEventListener("DOMContentLoaded", () => {
-    showTaskList();
-    countIncompleteTasks();
-  });
-
-  // Переключение задачи
-  document.addEventListener("click", onTodoItemCheckboxClick);
-
-  // Клик по кнопке удаления
-  document.addEventListener("click", onDeleteTaskButtonClick);
-
-  // Показать все задачи
-  document.addEventListener("click", onShowAllTasksButtonClick);
-
-  // Показать невыполненные задачи
-  document.addEventListener("click", onShowActiveTasksButtonClick);
-
-  // Показать выполненные задачи
-  document.addEventListener("click", onShowCompletedTasksButtonClick);
-
-  // Убрать выполненные задачи
-  document.addEventListener("click", onRemoveCompletedTasksButtonClick);
-
-  // Форма
-  todoFormElement.addEventListener("submit", onTodoFormSubmit);
-}
-
-// ===========================================
-// Экспорты
-// ===========================================
-
-export default bindEvents;
-
 export {
-  getTasksFromLocalStorage
+  showTaskList,
+  getTasksFromLocalStorage,
+  onTodoFormSubmit,
+  onDeleteTaskButtonClick,
+  onTodoItemCheckboxClick,
+  onShowAllTasksButtonClick,
+  onShowActiveTasksButtonClick,
+  onShowCompletedTasksButtonClick,
+  onRemoveCompletedTasksButtonClick
 };
