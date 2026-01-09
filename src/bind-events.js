@@ -4,9 +4,7 @@ import {
   onTodoFormSubmit,
   onDeleteTaskButtonClick,
   onTodoItemCheckboxClick,
-  onShowAllTasksButtonClick,
-  onShowActiveTasksButtonClick,
-  onShowCompletedTasksButtonClick,
+  onShowTasksButtonClick,
   onRemoveCompletedTasksButtonClick
 } from "./tasks";
 import countIncompleteTasks from "./counter";
@@ -36,17 +34,17 @@ const bindEvents = () => {
 
     // Отображение всех задач
     if (target.matches(selectors.showAllTasksButton)) {
-      return onShowAllTasksButtonClick();
+      return onShowTasksButtonClick();
     }
 
     // Отображение активных задач
     if (target.matches(selectors.showActiveTasksButton)) {
-      return onShowActiveTasksButtonClick();
+      return onShowTasksButtonClick("active");
     }
 
     // Отображение выполненных задач
     if (target.matches(selectors.showCompletedTasksButton)) {
-      return onShowCompletedTasksButtonClick();
+      return onShowTasksButtonClick("completed");
     }
 
     // Удаление выполненных задач
@@ -55,7 +53,7 @@ const bindEvents = () => {
     }
   });
 
-  // Отправка форма
+  // Отправка формы
   todoFormElement.addEventListener("submit", onTodoFormSubmit);
 }
 

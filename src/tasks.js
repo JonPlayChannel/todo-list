@@ -150,11 +150,7 @@ const onDeleteTaskButtonClick = (target) => {
   }
 }
 
-const onShowAllTasksButtonClick = () => showTaskList();
-
-const onShowActiveTasksButtonClick = () => showTaskList("active");
-
-const onShowCompletedTasksButtonClick = () => showTaskList("completed");
+const onShowTasksButtonClick = (filter) => showTaskList(filter);
 
 const onRemoveCompletedTasksButtonClick = () => {
   const isConfirmed = confirm("Удалить выполненные задачи?");
@@ -172,8 +168,6 @@ export {
   onTodoFormSubmit,
   onDeleteTaskButtonClick,
   onTodoItemCheckboxClick,
-  onShowAllTasksButtonClick,
-  onShowActiveTasksButtonClick,
-  onShowCompletedTasksButtonClick,
+  onShowTasksButtonClick,
   onRemoveCompletedTasksButtonClick
 };
