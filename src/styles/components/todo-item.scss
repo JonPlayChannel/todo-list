@@ -1,13 +1,18 @@
 @use "../helpers" as *;
 
 .todo-item {
-  padding: var(--padding-big) var(--padding-small);
+  padding: var(--padding-small);
   display: flex;
   align-items: center;
   column-gap: rem(20);
   
   &:not(:last-child) {
     border-bottom: var(--border);
+  }
+
+  &__label {
+    width: 100%;
+    padding: calc(var(--padding-small) / 2);
   }
 
   &__delete-task-button {
