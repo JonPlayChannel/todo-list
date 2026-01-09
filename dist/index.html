@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Список задач</title>
+    <script type="module" crossorigin src="/assets/index-BUvQ13Q8.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BxpRvTjb.css">
+  </head>
+  <body>
+    <h1 class="h1">Список задач</h1>
+    <div class="todo">
+      <div class="todo__header">
+        <label
+          class="todo__toggle-complete toggle-complete"
+          title="Выполнить все задачи"
+          aria-label="Выполнить все задачи"      
+        >
+          <input
+            class="toggle-complete__controller"
+            type="checkbox"
+            id="toggle-complete"
+            tabindex="-1"
+            data-js-toggle-complete
+          />
+          <span class="toggle-complete__emulator"></span>
+        </label>
+        <form class="todo__form" data-js-todo-form>
+          <input 
+            class="todo__input"
+            id="add-task"
+            placeholder="Что нужно сделать?"
+            tabindex="0"
+            data-js-todo-input
+          />
+        </form>
+      </div>
+      <ul class="todo__list visually-hidden" data-js-todo-list></ul>
+      <div class="todo__footer visually-hidden" data-js-todo-footer>
+        <div class="todo__items-left">
+          <span data-js-todo-items-count>n</span>
+          <span data-js-todo-items-label>задач(а)</span>
+          <span data-js-todo-items-left>осталось(осталась)</span>
+        </div>
+        <div class="todo__control-buttons control-buttons">
+          <button
+            class="control-buttons__button"
+            type="button"
+            title="Показать все задачи"
+            aria-label="Показать все задачи"
+            data-js-show-all-tasks-button
+          >
+            Все
+          </button>
+          <button
+            class="control-buttons__button"
+            type="button"
+            title="Показать активные задачи"
+            aria-label="Показать активные задачи"
+            data-js-show-active-tasks-button
+          >
+            Активные
+          </button>
+          <button
+            class="control-buttons__button"
+            type="button"
+            title="Показать выполненные задачи"
+            aria-label="Показать выполненные задачи"
+            data-js-show-completed-tasks-button
+          >
+            Выполненные
+          </button>
+          <button
+            class="control-buttons__button control-buttons__button--aside"
+            type="button"
+            title="Убрать выполненные задачи"
+            aria-label="Убрать выполненные задачи"
+            data-js-remove-completed-tasks-button
+          >
+            Убрать выполненные
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
