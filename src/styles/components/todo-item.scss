@@ -18,6 +18,11 @@
       border: var(--border-orange-100);
       outline: 0;
     }
+
+    &--completed {
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
   }
 
   &__delete-task-button {
