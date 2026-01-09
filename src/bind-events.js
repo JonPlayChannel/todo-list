@@ -4,7 +4,6 @@ import {
   onTodoFormSubmit,
   onDeleteTaskButtonClick,
   onTodoItemCheckboxClick,
-  onShowTasksButtonClick,
   onRemoveCompletedTasksButtonClick
 } from "./tasks";
 import countIncompleteTasks from "./counter";
@@ -34,17 +33,17 @@ const bindEvents = () => {
 
     // Отображение всех задач
     if (target.matches(selectors.showAllTasksButton)) {
-      return onShowTasksButtonClick();
+      return showTaskList();
     }
 
     // Отображение активных задач
     if (target.matches(selectors.showActiveTasksButton)) {
-      return onShowTasksButtonClick("active");
+      return showTaskList("active");
     }
 
     // Отображение выполненных задач
     if (target.matches(selectors.showCompletedTasksButton)) {
-      return onShowTasksButtonClick("completed");
+      return showTaskList("completed");
     }
 
     // Удаление выполненных задач
