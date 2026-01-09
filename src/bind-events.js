@@ -21,24 +21,41 @@ const bindEvents = () => {
   });
 
   // Переключение задачи
-  document.addEventListener("click", onTodoItemCheckboxClick);
+  document.addEventListener("click", (event) => {
+    const { target } = event;
 
-  // Клик по кнопке удаления
-  document.addEventListener("click", onDeleteTaskButtonClick);
+    // Переключение состояния задачи
+    if (target.matches(selectors.todoItemCheckbox)) {
+      return onTodoItemCheckboxClick(target);
+    }
 
-  // Показать все задачи
-  document.addEventListener("click", onShowAllTasksButtonClick);
+    // Удаленние задачи
+    if (target.matches(selectors.deleteTaskButton)) {
+      return onDeleteTaskButtonClick(target);
+    }
 
-  // Показать невыполненные задачи
-  document.addEventListener("click", onShowActiveTasksButtonClick);
+    // Отображение всех задач
+    if (target.matches(selectors.showAllTasksButton)) {
+      return onShowAllTasksButtonClick();
+    }
 
-  // Показать выполненные задачи
-  document.addEventListener("click", onShowCompletedTasksButtonClick);
+    // Отображение активных задач
+    if (target.matches(selectors.showActiveTasksButton)) {
+      return onShowActiveTasksButtonClick();
+    }
 
-  // Убрать выполненные задачи
-  document.addEventListener("click", onRemoveCompletedTasksButtonClick);
+    // Отображение выполненных задач
+    if (target.matches(selectors.showCompletedTasksButton)) {
+      return onShowCompletedTasksButtonClick();
+    }
 
-  // Форма
+    // Удаление выполненных задач
+    if (target.matches(selectors.removeCompletedTasksButton)) {
+      return onRemoveCompletedTasksButtonClick();
+    }
+  });
+
+  // Отправка форма
   todoFormElement.addEventListener("submit", onTodoFormSubmit);
 }
 

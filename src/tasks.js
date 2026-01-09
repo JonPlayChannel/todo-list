@@ -129,82 +129,40 @@ const onTodoFormSubmit = (event) => {
   showTaskList();
 }
 
-const onDeleteTaskButtonClick = (event) => {
-  const { target } = event;
-
-  const isDeleteTaskButtonElement = target.matches(selectors.deleteTaskButton);
-
-  if (isDeleteTaskButtonElement) {
-    const todoItemElement = target.closest(selectors.todoItem);
-    const taskId = todoItemElement.querySelector(selectors.todoItemCheckbox)?.id;
-    const taskLabel = todoItemElement.querySelector(selectors.todoItemLabel)?.textContent;
-
-    const isConfimed = confirm(`Удалить задачу "${taskLabel}"?`);
-
-    if (isConfimed) {
-      todoItemElement.remove();
-      deleteTaskFromLocalStorage(taskId);
-      countIncompleteTasks();
-    }
-  }
+const onTodoItemCheckboxClick = (target) => {
+  const { id, checked } = target;
+    
+  updateTaskCompleteInLocalStorage(id, checked);
+  countIncompleteTasks();
 }
 
-const onTodoItemCheckboxClick = (event) => {
-  const { target } = event;
+const onDeleteTaskButtonClick = (target) => {
+  const todoItemElement = target.closest(selectors.todoItem);
+  const taskId = todoItemElement.querySelector(selectors.todoItemCheckbox)?.id;
+  const taskLabel = todoItemElement.querySelector(selectors.todoItemLabel)?.textContent;
 
-  const isTodoItemCheckboxElement = target.matches(selectors.todoItemCheckbox);
+  const isConfimed = confirm(`Удалить задачу "${taskLabel}"?`);
 
-  if (isTodoItemCheckboxElement) {
-    const { id, checked } = target;
-    
-    updateTaskCompleteInLocalStorage(id, checked);
+  if (isConfimed) {
+    todoItemElement.remove();
+    deleteTaskFromLocalStorage(taskId);
     countIncompleteTasks();
   }
 }
 
-const onShowAllTasksButtonClick = (event) => {
-  const { target } = event;
+const onShowAllTasksButtonClick = () => showTaskList();
 
-  const isShowAllTasksButtonElement = target.matches(selectors.showAllTasksButton);
+const onShowActiveTasksButtonClick = () => showTaskList("active");
 
-  if (isShowAllTasksButtonElement) {
-    showTaskList();
-  }
-}
+const onShowCompletedTasksButtonClick = () => showTaskList("completed");
 
-const onShowActiveTasksButtonClick = (event) => {
-  const { target } = event;
-
-  const isShowActiveTasksButtonElement = target.matches(selectors.showActiveTasksButton);
-
-  if (isShowActiveTasksButtonElement) {
-    showTaskList("active");
-  }
-}
-
-const onShowCompletedTasksButtonClick = (event) => {
-  const { target } = event;
-
-  const isShowCompletedTasksButtonElement = target.matches(selectors.showCompletedTasksButton);
-
-  if (isShowCompletedTasksButtonElement) {
-    showTaskList("completed");
-  }
-}
-
-const onRemoveCompletedTasksButtonClick = (event) => {
-  const { target } = event;
-
-  const isRemoveCompletedTasksButtonElement = target.matches(selectors.removeCompletedTasksButton);
-
-  if (isRemoveCompletedTasksButtonElement) {
-    const isConfirmed = confirm("Удалить выполненные задачи?");
+const onRemoveCompletedTasksButtonClick = () => {
+  const isConfirmed = confirm("Удалить выполненные задачи?");
     
-    if (isConfirmed) {
-      removeCompletedTasksFromLocalStorage();
-      showTaskList(null);
-      countIncompleteTasks();
-    }
+  if (isConfirmed) {
+    removeCompletedTasksFromLocalStorage();
+    showTaskList();
+    countIncompleteTasks();
   }
 }
 
