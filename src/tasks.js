@@ -1,56 +1,18 @@
 import selectors from "./selectors";
 import cssClasses from "./css-classes";
 import countIncompleteTasks from "./counter";
-
-const snpTodoKey = "snp-todo";
+import {
+  getTasksFromLocalStorage,
+  addTaskToLocalStorage,
+  deleteTaskFromLocalStorage,
+  updateTaskCompleteInLocalStorage,
+  removeCompletedTasksFromLocalStorage
+} from "./storage";
 
 const todoFormElement = document.querySelector(selectors.todoForm);
 const todoListElement = document.querySelector(selectors.todoList);
 const todoInputElement = document.querySelector(selectors.todoInput);
 const todoFooterElement = document.querySelector(selectors.todoFooter);
-
-// ===========================================
-// Работа с localStorage
-// ===========================================
-const getTasksFromLocalStorage = () => JSON.parse(localStorage.getItem(snpTodoKey));
-
-const addTaskToLocalStorage = (newTask) => {
-  const currentTasks = getTasksFromLocalStorage() ?? [];
-  
-  const newTasks = [...currentTasks, newTask];
-
-  localStorage.setItem(snpTodoKey, JSON.stringify(newTasks));
-}
-
-const deleteTaskFromLocalStorage = (taskId) => {
-  const currentTasks = getTasksFromLocalStorage();
-
-  const updatedTasks = currentTasks.filter(task => task.id !== taskId);
-  
-  localStorage.setItem(snpTodoKey, JSON.stringify(updatedTasks));
-}
-
-const updateTaskCompleteInLocalStorage = (taskId, isDone) => {
-  const tasks = getTasksFromLocalStorage();
-
-  const updatedTasks = tasks.map((task) => {
-    if (task.id === taskId) {
-      return { ...task, isDone };
-    }
-
-    return task;
-  });
-
-  localStorage.setItem(snpTodoKey, JSON.stringify(updatedTasks));
-}
-
-const removeCompletedTasksFromLocalStorage = () => {
-  const currentTasks = getTasksFromLocalStorage();
-
-  const updatedTasks = currentTasks.filter(task => !task.isDone);
-  
-  localStorage.setItem(snpTodoKey, JSON.stringify(updatedTasks));
-}
 
 // ===========================================
 // Элементы задач
@@ -161,7 +123,7 @@ const onTodoFormSubmit = (event) => {
     removeVisuallyHiddenClass();
   }
 
-  showTaskList(null);
+  showTaskList();
 }
 
 const onDeleteTaskButtonClick = (event) => {
