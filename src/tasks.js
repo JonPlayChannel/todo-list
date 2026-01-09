@@ -84,11 +84,13 @@ const showTaskList = (filter) => {
   
   if (!filter) {
     tasksList.forEach(task => createNewTaskElement(task));
+    return;
   }
 
   if (filter === "active") {
     const filteredTasks = tasksList.filter(({isDone}) => !isDone);
     filteredTasks.forEach(task => createNewTaskElement(task));
+    return;
   }
 
   if (filter === "completed") {
