@@ -50,7 +50,7 @@ const createNewTaskElement = (newTask) => {
 
   // Подпись задачи
   const taskLabel = document.createElement("span");
-  taskLabel.className = cssClasses.todoItemLabel;
+  taskLabel.className = `${cssClasses.todoItemLabel} ${isDone && cssClasses.todoItemLabelCompleted}`
   taskLabel.textContent = label;
   taskLabel.dataset.jsTodoItemLabel = "";
 
@@ -71,7 +71,7 @@ const changeLabelStyles = (labelElement, isDone) => {
   if (isDone) {
     labelElement.classList.add(cssClasses.todoItemLabelCompleted);
   } else {
-    labelElement.classList.remove(cssClasses.todoItemLabelCompleted);;
+    labelElement.classList.remove(cssClasses.todoItemLabelCompleted);
   }
 }
 
@@ -157,20 +157,27 @@ const checkAllTasksCompleted = () => {
 const onToggleCompleteClick = (target) => {
   const { checked } = target;
 
+  const labels = document.querySelectorAll(selectors.todoItemLabel);
   const checkboxes = document.querySelectorAll(selectors.todoItemCheckbox);
   const tasks = getTasksFromLocalStorage();
 
-  [...checkboxes].forEach(checkbox => checkbox.checked = checked);
+  labels.forEach(label => changeLabelStyles(label, checked));
+  checkboxes.forEach(checkbox => checkbox.checked = checked);
 
   tasks.forEach(({id}) => {
     updateTaskInLocalStorage(id, { isDone: checked });
   });
+
+  countIncompleteTasks();
 }
 
 const onTodoItemCheckboxClick = (target) => {
+  const todoItemElement = target.closest(selectors.todoItem);
+  const taskLabel = todoItemElement.querySelector(selectors.todoItemLabel);
   const { id, checked } = target;
     
   updateTaskInLocalStorage(id, { isDone: checked });
+  changeLabelStyles(taskLabel, checked);
   countIncompleteTasks();
   checkAllTasksCompleted();
 }
