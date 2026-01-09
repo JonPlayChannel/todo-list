@@ -3,7 +3,6 @@ import {
   showTaskList,
   onTodoFormSubmit,
   onTodoItemCheckboxClick,
-  onTodoLabelDblclick,
   onDeleteTaskButtonClick,
   onRemoveCompletedTasksButtonClick
 } from "./tasks";

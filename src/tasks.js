@@ -167,7 +167,6 @@ export {
   getTasksFromLocalStorage,
   onTodoFormSubmit,
   onTodoItemCheckboxClick,
-  onTodoLabelDblclick,
   onDeleteTaskButtonClick,
   onRemoveCompletedTasksButtonClick
 };
