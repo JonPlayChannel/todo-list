@@ -24,7 +24,7 @@
     cursor: pointer;
 
     @include desktop-below {
-      width: rem(140);
+      width: rem(130);
       font-size: fluid(20, 16);
     }
 
