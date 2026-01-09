@@ -18,19 +18,24 @@ const deleteTaskFromLocalStorage = (taskId) => {
   localStorage.setItem(snpTodoKey, JSON.stringify(updatedTasks));
 }
 
-const updateTaskCompleteInLocalStorage = (taskId, isDone) => {
+const updateTaskInLocalStorage = (taskId, options = {}) => {
+  const { isDone, label } = options;
   const tasks = getTasksFromLocalStorage();
 
   const updatedTasks = tasks.map((task) => {
     if (task.id === taskId) {
-      return { ...task, isDone };
+      return { 
+        ...task, 
+        ...(isDone !== undefined && { isDone }),
+        ...(label !== undefined && { label }) 
+      };
     }
-
+    
     return task;
   });
 
   localStorage.setItem(snpTodoKey, JSON.stringify(updatedTasks));
-}
+};
 
 const removeCompletedTasksFromLocalStorage = () => {
   const currentTasks = getTasksFromLocalStorage();
@@ -44,6 +49,6 @@ export {
   getTasksFromLocalStorage,
   addTaskToLocalStorage,
   deleteTaskFromLocalStorage,
-  updateTaskCompleteInLocalStorage,
+  updateTaskInLocalStorage,
   removeCompletedTasksFromLocalStorage
 }

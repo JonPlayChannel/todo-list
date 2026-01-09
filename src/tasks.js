@@ -5,7 +5,7 @@ import {
   getTasksFromLocalStorage,
   addTaskToLocalStorage,
   deleteTaskFromLocalStorage,
-  updateTaskCompleteInLocalStorage,
+  updateTaskInLocalStorage,
   removeCompletedTasksFromLocalStorage
 } from "./storage";
 
@@ -134,9 +134,31 @@ const onTodoFormSubmit = (event) => {
 const onTodoItemCheckboxClick = (target) => {
   const { id, checked } = target;
     
-  updateTaskCompleteInLocalStorage(id, checked);
+  updateTaskInLocalStorage(id, { isDone: checked });
   countIncompleteTasks();
 }
+
+const onTodoItemLabelDblclick = (target) => {
+  target.contentEditable = true;
+  target.classList.add(cssClasses.todoItemLabelEditable);
+}
+
+const onTodoItemLabelBlur = (target) => {
+  const todoItemElement = target.closest(selectors.todoItem);
+  const taskId = todoItemElement
+    .querySelector(selectors.todoItemCheckbox)?.id;
+    
+  const textContent = target.innerText;
+  target.innerText = textContent.replace(/\s+/g, ' ').trim();
+  
+  target.contentEditable = false;
+  target.classList.remove(cssClasses.todoItemLabelEditable);
+  
+  updateTaskInLocalStorage(taskId, { 
+    label: textContent || ''
+  });
+};
+
 
 const onDeleteTaskButtonClick = (target) => {
   const todoItemElement = target.closest(selectors.todoItem);
@@ -167,6 +189,8 @@ export {
   getTasksFromLocalStorage,
   onTodoFormSubmit,
   onTodoItemCheckboxClick,
+  onTodoItemLabelDblclick,
+  onTodoItemLabelBlur,
   onDeleteTaskButtonClick,
   onRemoveCompletedTasksButtonClick
 };

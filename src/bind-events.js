@@ -3,6 +3,8 @@ import {
   showTaskList,
   onTodoFormSubmit,
   onTodoItemCheckboxClick,
+  onTodoItemLabelDblclick,
+  onTodoItemLabelBlur,
   onDeleteTaskButtonClick,
   onRemoveCompletedTasksButtonClick
 } from "./tasks";
@@ -56,10 +58,18 @@ const bindEvents = () => {
   document.addEventListener("dblclick", (event) => {
     const { target } = event;
 
-    if (target.matches(selectors.todoItemLabel)) {
-      target.contentEditable = true;
+    if (target.matches(selectors.todoItemLabel)) {      
+      return onTodoItemLabelDblclick(target);
     }
-  })
+  });
+
+  document.addEventListener("blur", (event) => {
+    const { target } = event;
+
+    if (target.matches(selectors.todoItemLabel)) {
+      return onTodoItemLabelBlur(target);
+    }
+  }, true);
 
   // Отправка формы
   todoFormElement.addEventListener("submit", onTodoFormSubmit);

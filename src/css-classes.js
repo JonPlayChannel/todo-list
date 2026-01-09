@@ -7,6 +7,7 @@ const cssClasses = {
   todoItem: "todo__todo-item todo-item",
   todoItemCheckbox: "todo-item__checkbox",
   todoItemLabel: "todo-item__label",
+  todoItemLabelEditable: "todo-item__label--editable",
   deleteTaskButton: "todo-item__delete-task-button",
 };
 
