@@ -229,6 +229,14 @@ const onRemoveCompletedTasksButtonClick = () => {
   }
 }
 
+const exitEditingMode = () => {
+  document.querySelectorAll(selectors.todoItemLabel)
+    .forEach(label => {
+      label.classList.remove(cssClasses.todoItemLabelEditable);
+      label.contentEditable = false;
+    });
+}
+
 export {
   showTaskList,
   getTasksFromLocalStorage,
@@ -239,5 +247,6 @@ export {
   onTodoItemLabelDblclick,
   onTodoItemLabelBlur,
   onDeleteTaskButtonClick,
-  onRemoveCompletedTasksButtonClick
+  onRemoveCompletedTasksButtonClick,
+  exitEditingMode
 };

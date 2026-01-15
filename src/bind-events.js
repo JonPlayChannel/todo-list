@@ -8,7 +8,8 @@ import {
   onTodoItemLabelDblclick,
   onTodoItemLabelBlur,
   onDeleteTaskButtonClick,
-  onRemoveCompletedTasksButtonClick
+  onRemoveCompletedTasksButtonClick,
+  exitEditingMode
 } from "./tasks";
 import countIncompleteTasks from "./counter";
 import cssClasses from "./css-classes";
@@ -49,11 +50,10 @@ const bindEvents = () => {
 
     // Сброс класса для надписи задачи
     if (!target.matches(selectors.todoItemLabel)) {
-      document.querySelectorAll(selectors.todoItemLabel).forEach(label => {
-        label.classList.remove(cssClasses.todoItemLabelEditable);
-      });
+      return exitEditingMode();
     }
     
+    // Переключение состояния всех задач
     if (target.matches(selectors.toggleComplete)) {
       return onToggleCompleteClick(target);
     }
@@ -101,6 +101,12 @@ const bindEvents = () => {
       return onTodoItemLabelBlur(target);
     }
   }, true);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "Escape") {
+      exitEditingMode();
+    }
+  })
 
   // Отправка формы
   todoFormElement.addEventListener("submit", onTodoFormSubmit);
