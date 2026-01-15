@@ -11,8 +11,9 @@
   }
 
   &__label {
-    width: 100%;
+    max-width: 85%;
     padding: calc(var(--padding-small) / 2);
+    overflow-wrap: break-word;
     transition-duration: var(--transition-duration);
 
     &--editable {
