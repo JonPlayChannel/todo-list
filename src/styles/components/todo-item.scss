@@ -15,16 +15,18 @@
     padding: calc(var(--padding-small) / 2);
     border: var(--border-transparent);
     overflow-wrap: break-word;
+    outline: 0;
     transition-duration: var(--transition-duration);
-
-    &--editable {
-      border-color: var(--color-orange-100);
-      outline: 0;
-    }
 
     &--completed {
       text-decoration: line-through;
       opacity: 0.5;
+    }
+
+    &--editable {
+      text-decoration: none;
+      border-color: var(--color-orange-100);
+      opacity: 1;
     }
   }
 
@@ -37,7 +39,7 @@
     border: none;
     border-radius: 50%;
     transition-duration: var(--transition-duration);
-    opacity: 0.75;
+    opacity: 0;
     cursor: pointer;
 
     &::before {

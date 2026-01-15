@@ -50,7 +50,7 @@ const bindEvents = () => {
 
     // Сброс класса для надписи задачи
     if (!target.matches(selectors.todoItemLabel)) {
-      return exitEditingMode();
+      exitEditingMode();
     }
     
     // Переключение состояния всех задач
