@@ -17,6 +17,8 @@
 
   --border: #{rem(1)} solid var(--color-gray);
   --border-orange-100: #{rem(2)} solid var(--color-orange-100);
+  --border-transparent: #{rem(2)} solid transparent;
+  
   --border-radius: #{rem(14)};
 
   --box-shadow: 0 0 #{rem(2)} #{rem(2)} var(--color-orange-100);

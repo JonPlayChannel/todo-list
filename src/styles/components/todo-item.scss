@@ -11,13 +11,14 @@
   }
 
   &__label {
-    max-width: 85%;
+    width: 85%;
     padding: calc(var(--padding-small) / 2);
+    border: var(--border-transparent);
     overflow-wrap: break-word;
     transition-duration: var(--transition-duration);
 
     &--editable {
-      border: var(--border-orange-100);
+      border-color: var(--color-orange-100);
       outline: 0;
     }
 
