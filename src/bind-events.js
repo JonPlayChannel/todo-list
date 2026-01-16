@@ -138,7 +138,7 @@ const bindEvents = () => {
       return exitEditingMode();
     }
 
-    if (code === "Enter" || code === "NumpadEnter") {
+    if ((code === "Enter" || code === "NumpadEnter") && !event.shiftKey) {
       onTodoItemLabelBlur(document.querySelector(selectors.todoItemLabel));
       exitEditingMode();      
     }
