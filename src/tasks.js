@@ -14,7 +14,7 @@ const todoListElement = document.querySelector(selectors.todoList);
 const todoInputElement = document.querySelector(selectors.todoInput);
 const todoFooterElement = document.querySelector(selectors.todoFooter);
 
-const sessionFilterKey = "snp-todo-filter";
+const snpFilterKey = "snp-todo-filter";
 
 // ===========================================
 // Отображение задач
@@ -83,8 +83,10 @@ const removeVisuallyHiddenClass = () => {
 }
 
 const showTaskList = () => {
-  const filter = sessionStorage.getItem(sessionFilterKey) ?? "none";
+  const filter = sessionStorage.getItem(snpFilterKey) ?? "none";
   const tasksList = getTasksFromLocalStorage();
+  
+  location.hash = filter === "none" ? "" : filter;
 
   if (tasksList === null) return;
   else {
@@ -172,6 +174,8 @@ const onToggleCompleteClick = (target) => {
   });
 
   countIncompleteTasks();
+  sessionStorage.setItem(snpFilterKey, checked ? "completed" : "none");
+  showTaskList();
 }
 
 const onTodoItemCheckboxClick = (target) => {
@@ -183,6 +187,7 @@ const onTodoItemCheckboxClick = (target) => {
   changeLabelStyles(taskLabel, checked);
   countIncompleteTasks();
   checkAllTasksCompleted();
+  showTaskList();
 }
 
 const onTodoItemLabelDblclick = (target) => {
@@ -233,7 +238,7 @@ const onRemoveCompletedTasksButtonClick = () => {
 }
 
 export {
-  sessionFilterKey,
+  snpFilterKey,
   
   showTaskList,
   getTasksFromLocalStorage,

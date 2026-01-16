@@ -1,7 +1,7 @@
 import selectors from "./selectors";
 import cssClasses from "./css-classes";
 import {
-  sessionFilterKey,
+  snpFilterKey,
 
   showTaskList,
   checkAllTasksCompleted,
@@ -21,8 +21,8 @@ let lastTouchTime = 0;
 let doubleTapTimeout;
 const DOUBLE_TAP_DELAY = 400;
 
-const setSessionFilter = () => {
-  sessionStorage.setItem(sessionFilterKey, "none");
+const setFilter = () => {
+  sessionStorage.setItem(snpFilterKey, "none");
 }
 
 const handleDoubleClick = (target) => {
@@ -52,7 +52,7 @@ const exitEditingMode = () => {
 const bindEvents = () => {
   // Загрузка задач
   document.addEventListener("DOMContentLoaded", () => {    
-    setSessionFilter();
+    setFilter();
     showTaskList();
     countIncompleteTasks();
     checkAllTasksCompleted();
@@ -86,19 +86,19 @@ const bindEvents = () => {
 
     // Отображение всех задач
     if (target.matches(selectors.showAllTasksButton)) {
-      sessionStorage.setItem(sessionFilterKey, "none");
+      sessionStorage.setItem(snpFilterKey, "none");
       return showTaskList();
     }
 
     // Отображение активных задач
     if (target.matches(selectors.showActiveTasksButton)) {
-      sessionStorage.setItem(sessionFilterKey, "active");
+      sessionStorage.setItem(snpFilterKey, "active");
       return showTaskList();
     }
 
     // Отображение выполненных задач
     if (target.matches(selectors.showCompletedTasksButton)) {
-      sessionStorage.setItem(sessionFilterKey, "completed");
+      sessionStorage.setItem(snpFilterKey, "completed");
       return showTaskList();
     }
 
