@@ -7,10 +7,10 @@
   column-gap: rem(20);
 
   @include hover {
-      .todo-item__delete-task-button {
-        opacity: 1;
-      }
+    .todo-item__delete-task-button {
+      opacity: 1;
     }
+  }
   
   &:not(:last-child) {
     border-bottom: var(--border);
