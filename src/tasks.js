@@ -190,11 +190,6 @@ const onTodoItemCheckboxClick = (target) => {
   showTaskList();
 }
 
-const onTodoItemLabelDblclick = (target) => {
-  target.contentEditable = true;
-  target.classList.add(cssClasses.todoItemLabelEditable);
-}
-
 const onTodoItemLabelBlur = (target) => {
   const todoItemElement = target.closest(selectors.todoItem);
   const taskId = todoItemElement
@@ -246,7 +241,6 @@ export {
   onTodoFormSubmit,
   onToggleCompleteClick,
   onTodoItemCheckboxClick,
-  onTodoItemLabelDblclick,
   onTodoItemLabelBlur,
   onDeleteTaskButtonClick,
   onRemoveCompletedTasksButtonClick,

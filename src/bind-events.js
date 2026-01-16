@@ -8,7 +8,6 @@ import {
   onTodoFormSubmit,
   onToggleCompleteClick,
   onTodoItemCheckboxClick,
-  onTodoItemLabelDblclick,
   onTodoItemLabelBlur,
   onDeleteTaskButtonClick,
   onRemoveCompletedTasksButtonClick,
@@ -25,12 +24,33 @@ const setFilter = () => {
   sessionStorage.setItem(snpFilterKey, "none");
 }
 
+const exitEditingMode = (target = null) => {
+  const labels = document.querySelectorAll(selectors.todoItemLabel);
+
+  const deselect = (label) => {
+      label.classList.remove(cssClasses.todoItemLabelEditable);
+      label.contentEditable = false;
+  }
+  
+  if (!target) {
+    return labels.forEach(label => deselect(label));
+  }
+
+  labels.forEach(label => {
+    if (label !== target) {
+      deselect(label);
+    }
+  })
+}
+
 const handleDoubleClick = (target) => {
+  exitEditingMode(target);
   const now = Date.now();
       
   if (now - lastTouchTime < DOUBLE_TAP_DELAY) {
     clearTimeout(doubleTapTimeout);
-    onTodoItemLabelDblclick(target);
+    target.contentEditable = true;
+    target.classList.add(cssClasses.todoItemLabelEditable);
     lastTouchTime = 0;
     return;
   }
@@ -39,14 +59,6 @@ const handleDoubleClick = (target) => {
   doubleTapTimeout = setTimeout(() => {
     lastTouchTime = 0;
   }, DOUBLE_TAP_DELAY);
-}
-
-const exitEditingMode = () => {
-  document.querySelectorAll(selectors.todoItemLabel)
-    .forEach(label => {
-      label.classList.remove(cssClasses.todoItemLabelEditable);
-      label.contentEditable = false;
-    });
 }
 
 const bindEvents = () => {
@@ -61,8 +73,6 @@ const bindEvents = () => {
   // Клики по элементам страницы
   document.addEventListener("click", (event) => {
     const { target } = event;
-
-    exitEditingMode();
     
     // Переключение состояния всех задач
     if (target.matches(selectors.toggleComplete)) {
@@ -77,6 +87,8 @@ const bindEvents = () => {
     // Двойнок клик по задаче
     if (target.matches(selectors.todoItemLabel)) {
       return handleDoubleClick(target);
+    } else {
+      exitEditingMode();
     }
 
     // Удаленние задачи
@@ -116,10 +128,22 @@ const bindEvents = () => {
     }
   }, true);
 
+  // Нажатия клавиш
   document.addEventListener("keydown", (event) => {
-    if (event.code === "Escape") {
-      exitEditingMode();
+    const { code } = event;
+    //console.log(event);
+    
+    
+    if (code === "Escape") {
+      return exitEditingMode();
     }
+
+    /**
+    if (code === "Enter" || code === "NumpadEnter") {
+      exitEditingMode();
+      onTodoItemLabelBlur(document.querySelector(selectors.todoItemLabel));
+    }
+     */
   })
 
   // Отправка формы
