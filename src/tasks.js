@@ -14,6 +14,8 @@ const todoListElement = document.querySelector(selectors.todoList);
 const todoInputElement = document.querySelector(selectors.todoInput);
 const todoFooterElement = document.querySelector(selectors.todoFooter);
 
+const sessionFilterKey = "snp-todo-filter";
+
 // ===========================================
 // Отображение задач
 // ===========================================
@@ -80,8 +82,9 @@ const removeVisuallyHiddenClass = () => {
   todoFooterElement.classList.remove(cssClasses.visuallyHidden);
 }
 
-const showTaskList = (filter) => {
-  const tasksList = getTasksFromLocalStorage();  
+const showTaskList = () => {
+  const filter = sessionStorage.getItem(sessionFilterKey) ?? "none";
+  const tasksList = getTasksFromLocalStorage();
 
   if (tasksList === null) return;
   else {
@@ -90,7 +93,7 @@ const showTaskList = (filter) => {
 
   todoListElement.innerHTML = "";
   
-  if (!filter) {
+  if (filter === "none") {
     tasksList.forEach(task => createNewTaskElement(task));
     return;
   }
@@ -229,15 +232,9 @@ const onRemoveCompletedTasksButtonClick = () => {
   }
 }
 
-const exitEditingMode = () => {
-  document.querySelectorAll(selectors.todoItemLabel)
-    .forEach(label => {
-      label.classList.remove(cssClasses.todoItemLabelEditable);
-      label.contentEditable = false;
-    });
-}
-
 export {
+  sessionFilterKey,
+  
   showTaskList,
   getTasksFromLocalStorage,
   checkAllTasksCompleted,
@@ -248,5 +245,4 @@ export {
   onTodoItemLabelBlur,
   onDeleteTaskButtonClick,
   onRemoveCompletedTasksButtonClick,
-  exitEditingMode
 };

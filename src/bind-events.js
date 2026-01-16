@@ -1,5 +1,8 @@
 import selectors from "./selectors";
+import cssClasses from "./css-classes";
 import {
+  sessionFilterKey,
+
   showTaskList,
   checkAllTasksCompleted,
   onTodoFormSubmit,
@@ -9,16 +12,18 @@ import {
   onTodoItemLabelBlur,
   onDeleteTaskButtonClick,
   onRemoveCompletedTasksButtonClick,
-  exitEditingMode
 } from "./tasks";
 import countIncompleteTasks from "./counter";
-import cssClasses from "./css-classes";
 
 const todoFormElement = document.querySelector(selectors.todoForm);
 
 let lastTouchTime = 0;
 let doubleTapTimeout;
 const DOUBLE_TAP_DELAY = 400;
+
+const setSessionFilter = () => {
+  sessionStorage.setItem(sessionFilterKey, "none");
+}
 
 const handleDoubleClick = (target) => {
   const now = Date.now();
@@ -36,9 +41,18 @@ const handleDoubleClick = (target) => {
   }, DOUBLE_TAP_DELAY);
 }
 
+const exitEditingMode = () => {
+  document.querySelectorAll(selectors.todoItemLabel)
+    .forEach(label => {
+      label.classList.remove(cssClasses.todoItemLabelEditable);
+      label.contentEditable = false;
+    });
+}
+
 const bindEvents = () => {
   // Загрузка задач
   document.addEventListener("DOMContentLoaded", () => {    
+    setSessionFilter();
     showTaskList();
     countIncompleteTasks();
     checkAllTasksCompleted();
@@ -48,10 +62,7 @@ const bindEvents = () => {
   document.addEventListener("click", (event) => {
     const { target } = event;
 
-    // Сброс класса для надписи задачи
-    if (!target.matches(selectors.todoItemLabel)) {
-      exitEditingMode();
-    }
+    exitEditingMode();
     
     // Переключение состояния всех задач
     if (target.matches(selectors.toggleComplete)) {
@@ -75,17 +86,20 @@ const bindEvents = () => {
 
     // Отображение всех задач
     if (target.matches(selectors.showAllTasksButton)) {
+      sessionStorage.setItem(sessionFilterKey, "none");
       return showTaskList();
     }
 
     // Отображение активных задач
     if (target.matches(selectors.showActiveTasksButton)) {
-      return showTaskList("active");
+      sessionStorage.setItem(sessionFilterKey, "active");
+      return showTaskList();
     }
 
     // Отображение выполненных задач
     if (target.matches(selectors.showCompletedTasksButton)) {
-      return showTaskList("completed");
+      sessionStorage.setItem(sessionFilterKey, "completed");
+      return showTaskList();
     }
 
     // Удаление выполненных задач
