@@ -28,8 +28,8 @@ const exitEditingMode = (target = null) => {
   const labels = document.querySelectorAll(selectors.todoItemLabel);
 
   const deselect = (label) => {
-      label.classList.remove(cssClasses.todoItemLabelEditable);
-      label.contentEditable = false;
+    label.classList.remove(cssClasses.todoItemLabelEditable);
+    label.contentEditable = false;
   }
   
   if (!target) {
