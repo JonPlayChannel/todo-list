@@ -28,6 +28,12 @@
       border-color: var(--color-orange-100);
       opacity: 1;
     }
+
+    @include hover {
+      + .todo-item__delete-task-button {
+        opacity: 1;
+      }
+    }
   }
 
   &__delete-task-button {
@@ -56,10 +62,6 @@
       background-image: url("/delete-task-icon.svg");
       background-position: center;
       background-repeat: no-repeat;
-    }
-
-    @include hover {
-      opacity: 1;
     }
   }
 }
