@@ -138,12 +138,10 @@ const bindEvents = () => {
       return exitEditingMode();
     }
 
-    /**
     if (code === "Enter" || code === "NumpadEnter") {
-      exitEditingMode();
       onTodoItemLabelBlur(document.querySelector(selectors.todoItemLabel));
+      exitEditingMode();      
     }
-     */
   })
 
   // Отправка формы
