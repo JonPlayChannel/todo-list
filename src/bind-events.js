@@ -131,9 +131,7 @@ const bindEvents = () => {
   // Нажатия клавиш
   document.addEventListener("keydown", (event) => {
     const { code } = event;
-    //console.log(event);
-    
-    
+
     if (code === "Escape") {
       return exitEditingMode();
     }
