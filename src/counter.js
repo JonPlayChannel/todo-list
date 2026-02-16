@@ -34,9 +34,9 @@ const countIncompleteTasks = () => {
 
   const [ items, left ] = getDeclension(incompleteTasksCount);
   
-  todoItemsCountElement.innerHTML = incompleteTasksCount;
-  todoItemsLabelElement.innerHTML = items;
-  todoItemsLeftElement.innerHTML = left;
+  todoItemsCountElement.textContent = incompleteTasksCount;
+  todoItemsLabelElement.textContent = items;
+  todoItemsLeftElement.textContent = left;
   setClearCompletedTasksButtonVisible(tasksList);
 
   if (tasksList.length === 0) {
