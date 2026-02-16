@@ -9,43 +9,30 @@ const todoItemsLabelElement = document.querySelector(selectors.todoItemsLabel);
 const todoItemsLeftElement = document.querySelector(selectors.todoItemsLeft);
 const removeCompletedTasksButtonElement = document.querySelector(selectors.removeCompletedTasksButton);
 
-const chooseWordsCase = (incompleteTasks) => {
-  let items = null;
-  let left = null;
+const getDeclension = (count) => {
+  const mod10 = count % 10;
+  const mod100 = count % 100;
 
-  switch (true) {
-    case incompleteTasks % 10 === 1 && incompleteTasks !== 11:
-      items = "задача";
-      left = "осталась";
-      break;
-    
-    case incompleteTasks % 100 === 11
-        || incompleteTasks % 100 === 12
-        || incompleteTasks % 100 === 13:
-      items = "задач";
-      left = "осталось";
-      break;
-      
-    case (incompleteTasks % 10 === 2)
-        || (incompleteTasks % 10 === 3)
-        || (incompleteTasks % 10 === 4):
-      items = "задачи";
-      left = "осталось";
-      break;
-      
-    default:
-      items = "задач";
-      left = "осталось";
+  if (mod100 >= 11 && mod100 <= 14) {
+    return ["задач", "осталось"];
   }
 
-  return [items, left];
-}
+  if (mod10 === 1) {
+    return ["задача", "осталась"];
+  }
+
+  if (mod10 >= 2 && mod10 <= 4) {
+    return ["задачи", "осталось"];
+  }
+
+  return ["задач", "осталось"];
+};
 
 const countIncompleteTasks = () => {
   const tasksList = getTasksFromLocalStorage();
   const incompleteTasksCount = tasksList.filter(({isDone}) => !isDone).length;
 
-  const [ items, left ] = chooseWordsCase(incompleteTasksCount);
+  const [ items, left ] = getDeclension(incompleteTasksCount);
   
   todoItemsCountElement.innerHTML = incompleteTasksCount;
   todoItemsLabelElement.innerHTML = items;
