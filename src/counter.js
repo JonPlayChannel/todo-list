@@ -29,7 +29,7 @@ const getDeclension = (count) => {
 };
 
 const countIncompleteTasks = () => {
-  const tasksList = getTasksFromLocalStorage();
+  const tasksList = getTasksFromLocalStorage() ?? [];
   const incompleteTasksCount = tasksList.filter(({isDone}) => !isDone).length;
 
   const [ items, left ] = getDeclension(incompleteTasksCount);

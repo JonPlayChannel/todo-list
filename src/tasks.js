@@ -84,7 +84,7 @@ const removeVisuallyHiddenClass = () => {
 
 const showTaskList = () => {
   const filter = sessionStorage.getItem(snpFilterKey) ?? "none";
-  const tasksList = getTasksFromLocalStorage();
+  const tasksList = getTasksFromLocalStorage() ?? [];
   
   location.hash = filter === "none" ? "" : filter;
 
@@ -146,7 +146,7 @@ const onTodoFormSubmit = (event) => {
 }
 
 const checkAllTasksCompleted = () => {
-  const tasks = getTasksFromLocalStorage();
+  const tasks = getTasksFromLocalStorage() ?? [];
   let allTasksCompleted = true;
 
   for (const task of tasks) {
@@ -164,7 +164,7 @@ const onToggleCompleteClick = (target) => {
 
   const labels = document.querySelectorAll(selectors.todoItemLabel);
   const checkboxes = document.querySelectorAll(selectors.todoItemCheckbox);
-  const tasks = getTasksFromLocalStorage();
+  const tasks = getTasksFromLocalStorage() ?? [];
 
   labels.forEach(label => changeLabelStyles(label, checked));
   checkboxes.forEach(checkbox => checkbox.checked = checked);
