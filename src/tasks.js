@@ -85,8 +85,6 @@ const removeVisuallyHiddenClass = () => {
 const showTaskList = () => {
   const filter = sessionStorage.getItem(snpFilterKey) ?? "none";
   const tasksList = getTasksFromLocalStorage() ?? [];
-  
-  location.hash = filter === "none" ? "" : filter;
 
   if (tasksList === null) return;
   else {
@@ -110,6 +108,15 @@ const showTaskList = () => {
     const filteredTasks = tasksList.filter(({isDone}) => isDone);
     filteredTasks.forEach(task => createNewTaskElement(task));
   }
+}
+
+const deleteTask = (todoItemElement) => {
+  const taskId = todoItemElement.querySelector(selectors.todoItemCheckbox)?.id;
+  
+  todoItemElement.remove();
+  deleteTaskFromLocalStorage(taskId);
+  countIncompleteTasks();
+  checkAllTasksCompleted();
 }
 
 // ===========================================
@@ -194,29 +201,25 @@ const onTodoItemLabelBlur = (target) => {
   const taskId = todoItemElement
     .querySelector(selectors.todoItemCheckbox)?.id;
     
-  const textContent = target.innerText;
-  target.innerText = textContent.replace(/\s+/g, ' ').trim();
+  const textContent = target.textContent;
+  const clearTextContent = target.textContent = textContent.replace(/\s+/g, ' ').trim();
   
   target.contentEditable = false;
   target.classList.remove(cssClasses.todoItemLabelEditable);
   
   updateTaskInLocalStorage(taskId, { 
-    label: textContent || ''
+    label: clearTextContent
   });
 };
 
 const onDeleteTaskButtonClick = (target) => {
   const todoItemElement = target.closest(selectors.todoItem);
-  const taskId = todoItemElement.querySelector(selectors.todoItemCheckbox)?.id;
   const taskLabel = todoItemElement.querySelector(selectors.todoItemLabel)?.textContent;
 
   const isConfimed = confirm(`Удалить задачу "${taskLabel}"?`);
 
   if (isConfimed) {
-    todoItemElement.remove();
-    deleteTaskFromLocalStorage(taskId);
-    countIncompleteTasks();
-    checkAllTasksCompleted();
+    deleteTask(todoItemElement);
   }
 }
 
