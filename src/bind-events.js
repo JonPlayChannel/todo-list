@@ -12,8 +12,6 @@ import {
 } from "./tasks";
 import countIncompleteTasks from "./counter";
 
-
-
 const exitEditingMode = (target = null) => {
   const labels = document.querySelectorAll(selectors.todoItemLabel);
 
@@ -54,7 +52,11 @@ const handleGlobalKeyDown = (event) => {
 };
 
 const handleOutsideClick = (event) => {
-  if (!event.target.matches(selectors.todoItemLabel)) {
+  const { target } = event;
+
+  const activeLabel = document.querySelector(`${selectors.todoItemLabel}[contenteditable="true"]`);
+
+  if (activeLabel && !activeLabel.contains(target)) {
     exitEditingMode();
   }
 };
@@ -115,7 +117,7 @@ const bindEvents = () => {
   showCompletedTasksButtonElement.addEventListener("click", () => setFilter("completed"));
   removeCompletedTasksButtonElement.addEventListener("click", onRemoveCompletedTasksButtonClick);
   
-  // Загрузка страницы
+  // DOM-дерево
   document.addEventListener("DOMContentLoaded", () => {    
     setFilter();
     countIncompleteTasks();
