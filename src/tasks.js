@@ -20,6 +20,11 @@ const snpFilterKey = "snp-todo-filter";
 // Отображение задач
 // ===========================================
 
+const setFilter = (filter = "none") => {
+  sessionStorage.setItem(snpFilterKey, filter);
+  showTaskList();
+}
+
 const createNewTaskElement = (newTask) => {
   const {
     id,
@@ -236,7 +241,7 @@ const onRemoveCompletedTasksButtonClick = () => {
 
 export {
   snpFilterKey,
-  
+  setFilter,
   showTaskList,
   getTasksFromLocalStorage,
   checkAllTasksCompleted,
