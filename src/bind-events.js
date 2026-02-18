@@ -64,7 +64,7 @@ const handleDoubleClick = (target) => {
 const bindEvents = () => {
   // Загрузка задач
   document.addEventListener("DOMContentLoaded", () => {    
-    setFilter();
+    //setFilter();
     showTaskList();
     countIncompleteTasks();
     checkAllTasksCompleted();
@@ -130,14 +130,17 @@ const bindEvents = () => {
 
   // Нажатия клавиш
   document.addEventListener("keydown", (event) => {
-    const { code } = event;
+    const { target, code } = event;
 
+    // Предотвращение ошибки при добавлении первой задачи
+    const isLabel = target.matches(selectors.todoItemLabel);
+    
     if (code === "Escape") {
       return exitEditingMode();
     }
 
-    if ((code === "Enter" || code === "NumpadEnter") && !event.shiftKey) {
-      onTodoItemLabelBlur(document.querySelector(selectors.todoItemLabel));
+    if ((code === "Enter" || code === "NumpadEnter") && isLabel && !event.shiftKey) {
+      onTodoItemLabelBlur(target);
       exitEditingMode();      
     }
   })
