@@ -21,6 +21,8 @@ const snpFilterKey = "snp-todo-filter";
 // ===========================================
 
 const setFilter = (filter = "none") => {
+  location.hash = filter;
+  
   sessionStorage.setItem(snpFilterKey, filter);
   showTaskList();
 }
@@ -116,7 +118,7 @@ const showTaskList = () => {
 }
 
 const deleteTask = (todoItemElement) => {
-  const taskId = todoItemElement.querySelector(selectors.todoItemCheckbox)?.id;
+  const taskId = todoItemElement.querySelector(selectors.todoItemCheckbox).id;
   
   todoItemElement.remove();
   deleteTaskFromLocalStorage(taskId);
@@ -202,15 +204,30 @@ const onTodoItemCheckboxClick = (target) => {
 }
 
 const onTodoItemLabelBlur = (target) => {
+  const removeSelection = () => {
+    target.contentEditable = false;
+    target.classList.remove(cssClasses.todoItemLabelEditable);
+  };
+  
   const todoItemElement = target.closest(selectors.todoItem);
   const taskId = todoItemElement
     .querySelector(selectors.todoItemCheckbox)?.id;
     
-  const textContent = target.textContent;
-  const clearTextContent = target.textContent = textContent.replace(/\s+/g, ' ').trim();
-  
-  target.contentEditable = false;
-  target.classList.remove(cssClasses.todoItemLabelEditable);
+  const initialText = target.initialText ?? '';
+  const clearTextContent = target.textContent.replace(/\s+/g, ' ').trim();
+
+  if (!clearTextContent) {
+    const shouldDeleteTask = confirm("Текст задачи пуст. Вы хотите её удалить?");
+
+    if (shouldDeleteTask) {
+      return deleteTask(todoItemElement);
+    } else {
+      target.textContent = initialText;
+      return removeSelection();
+    }
+  }
+
+  removeSelection();
   
   updateTaskInLocalStorage(taskId, { 
     label: clearTextContent

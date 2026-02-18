@@ -36,6 +36,7 @@ const exitEditingMode = (target = null) => {
 const handleDoubleClick = (target) => {
   exitEditingMode(target);
   
+  target.initialText = target.textContent;
   target.contentEditable = true;
   target.classList.add(cssClasses.todoItemLabelEditable);
 }
@@ -69,7 +70,12 @@ const bindEvents = () => {
   const todoFormElement = document.querySelector(selectors.todoForm);
   const toggleCompleteElement = document.querySelector(selectors.toggleComplete);
   const todoListElement = document.querySelector(selectors.todoList);
+
   const todoFooterElement = document.querySelector(selectors.todoFooter);
+  const showAllTasksButtonElement = todoFooterElement.querySelector(selectors.showAllTasksButton);
+  const showActiveTasksButtonElement = todoFooterElement.querySelector(selectors.showActiveTasksButton);
+  const showCompletedTasksButtonElement = todoFooterElement.querySelector(selectors.showCompletedTasksButton);
+  const removeCompletedTasksButtonElement = todoFooterElement.querySelector(selectors.removeCompletedTasksButton);
 
   // Отправка формы
   todoFormElement.addEventListener("submit", onTodoFormSubmit);
@@ -96,31 +102,18 @@ const bindEvents = () => {
 
   // Двойной клик для редактирования
   todoListElement.addEventListener("dblclick", (event) => {
-    if (event.target.matches(selectors.todoItemLabel)) {
-      handleDoubleClick(event.target); 
+    const { target } = event;
+    
+    if (target.matches(selectors.todoItemLabel)) {
+      handleDoubleClick(target); 
     }
   });
 
   // Подвал списка
-  todoFooterElement.addEventListener("click", (event) => {
-    const { target } = event;
-
-    if (target.matches(selectors.showAllTasksButton)) {
-      return setFilter();
-    }
-
-    if (target.matches(selectors.showActiveTasksButton)) {
-      return setFilter("active");
-    }
-
-    if (target.matches(selectors.showCompletedTasksButton)) {
-      return setFilter("completed");
-    }
-
-    if (target.matches(selectors.removeCompletedTasksButton)) {
-      return onRemoveCompletedTasksButtonClick();
-    }
-  });
+  showAllTasksButtonElement.addEventListener("click", () => setFilter());
+  showActiveTasksButtonElement.addEventListener("click", () => setFilter("active"));
+  showCompletedTasksButtonElement.addEventListener("click", () => setFilter("completed"));
+  removeCompletedTasksButtonElement.addEventListener("click", onRemoveCompletedTasksButtonClick);
   
   // Загрузка страницы
   document.addEventListener("DOMContentLoaded", () => {    
