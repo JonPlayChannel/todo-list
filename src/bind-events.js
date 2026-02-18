@@ -20,8 +20,9 @@ let lastTouchTime = 0;
 let doubleTapTimeout;
 const DOUBLE_TAP_DELAY = 400;
 
-const setFilter = () => {
-  sessionStorage.setItem(snpFilterKey, "none");
+const setFilter = (filter = "none") => {
+  sessionStorage.setItem(snpFilterKey, filter);
+  showTaskList();
 }
 
 const exitEditingMode = (target = null) => {
@@ -64,8 +65,7 @@ const handleDoubleClick = (target) => {
 const bindEvents = () => {
   // Загрузка задач
   document.addEventListener("DOMContentLoaded", () => {    
-    //setFilter();
-    showTaskList();
+    setFilter();
     countIncompleteTasks();
     checkAllTasksCompleted();
   });
@@ -98,20 +98,17 @@ const bindEvents = () => {
 
     // Отображение всех задач
     if (target.matches(selectors.showAllTasksButton)) {
-      sessionStorage.setItem(snpFilterKey, "none");
-      return showTaskList();
+      return setFilter();
     }
 
     // Отображение активных задач
     if (target.matches(selectors.showActiveTasksButton)) {
-      sessionStorage.setItem(snpFilterKey, "active");
-      return showTaskList();
+      return setFilter("active");
     }
 
     // Отображение выполненных задач
     if (target.matches(selectors.showCompletedTasksButton)) {
-      sessionStorage.setItem(snpFilterKey, "completed");
-      return showTaskList();
+      return setFilter("completed");
     }
 
     // Удаление выполненных задач

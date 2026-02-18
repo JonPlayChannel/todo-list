@@ -141,7 +141,7 @@ const onTodoFormSubmit = (event) => {
     removeVisuallyHiddenClass();
   }
 
-  showTaskList();
+  setFilter(sessionStorage.getItem(snpFilterKey) ?? "none");
   toggleCompleteElement.checked = false;
 }
 
@@ -174,8 +174,7 @@ const onToggleCompleteClick = (target) => {
   });
 
   countIncompleteTasks();
-  sessionStorage.setItem(snpFilterKey, checked ? "completed" : "none");
-  showTaskList();
+  setFilter(checked ? "completed" : "none");
 }
 
 const onTodoItemCheckboxClick = (target) => {
@@ -187,7 +186,7 @@ const onTodoItemCheckboxClick = (target) => {
   changeLabelStyles(taskLabel, checked);
   countIncompleteTasks();
   checkAllTasksCompleted();
-  showTaskList();
+  setFilter(sessionStorage.getItem(snpFilterKey) ?? "none");
 }
 
 const onTodoItemLabelBlur = (target) => {
