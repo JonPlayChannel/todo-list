@@ -211,7 +211,7 @@ const onTodoItemLabelBlur = (target) => {
   
   const todoItemElement = target.closest(selectors.todoItem);
   const taskId = todoItemElement
-    .querySelector(selectors.todoItemCheckbox)?.id;
+    ?.querySelector(selectors.todoItemCheckbox)?.id;
     
   const initialText = target.initialText ?? '';
   const clearTextContent = target.textContent.replace(/\s+/g, ' ').trim();
