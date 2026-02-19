@@ -217,7 +217,7 @@ const onTodoItemLabelBlur = (target) => {
   const clearTextContent = target.textContent.replace(/\s+/g, ' ').trim();
 
   if (!clearTextContent) {
-    const shouldDeleteTask = confirm("Текст задачи пуст. Вы хотите её удалить?");
+    const shouldDeleteTask = confirm("Текст задачи пуст. Вы хотите её удалить?\nЧтобы отменить редактирование, нажмите \"Отмена\".");
 
     if (shouldDeleteTask) {
       return deleteTask(todoItemElement);
